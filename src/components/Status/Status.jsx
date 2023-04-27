@@ -4,40 +4,90 @@ import Revenue from '../../assets/icons/revenue.svg';
 import Rider from '../../assets/icons/rider.svg';
 import Customer from '../../assets/icons/customer.svg';
 import Orders from '../../assets/icons/orders.svg';
+import { useEffect, useState } from 'react';
+import Axios from '../../api/axios';
   
 
-const staticStatus = [
-  {
-    icon: Revenue,
-    name: 'Total Revenue',
-    amount: 1382000,
-    gain: 235,
-    isCurrency: true,
-  },
-  {
-    icon: Orders,
-    name: 'Orders',
-    amount: 700,
-    gain: 20,
-    isCurrency: false,
-  },
-  {
-    icon: Customer,
-    name: 'Customers',
-    amount: 784,
-    gain: 235,
-    isCurrency: false,
-  },
-  {
-    icon: Rider,
-    name: 'Riders',
-    amount: 30,
-    gain: -3,
-    isCurrency: false,
-  },
-];
+
 
 const Status = () => {
+  const [status, setStatus] = useState({revenues: 0, orders: 0, customers: 0, riders: 0})
+  useEffect(() => {
+    async function handlerGetStatus() {
+      const {data: orders} = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/orders')
+      const {data: customers} = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/customers')
+      const {data: riders} = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/riders')
+
+      let revenues = 0;
+      let ordersArr = orders.order
+      for (let i = 0; i < ordersArr.length; i++) {
+        revenues += ordersArr[i].total;
+      }
+       const data = {
+        revenues: revenues,
+        orders: orders.pagination.totalResults,
+        customers: customers.pagination.totalResults,
+        riders: riders.pagination.totalResults,
+      }
+      console.log(revenues, orders, customers, riders)
+      setStatus(data);
+      orderGain(orders)
+
+  
+    }
+    handlerGetStatus()
+  }, [])
+
+  function orderGain(orderArray) {
+    let totalGain = 0;
+    let today = new Date();
+    
+    for (let i = 0; i < orderArray.length; i++) {
+      let orderDate = new Date(orderArray[i].timestamp);
+      let timeDiff = Math.abs(today.getTime() - orderDate.getTime());
+      let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+      if (diffDays <= 7) {
+        totalGain += orderArray[i].total - orderArray[i].cogs;
+      }
+    }
+    
+    console.log("Total gain in the last 7 days:", totalGain);
+    
+  }
+
+
+  const staticStatus = [
+    {
+      icon: Revenue,
+      name: 'Total Revenue',
+      amount: parseInt(status.revenues),
+      gain: 235,
+      isCurrency: true,
+    },
+    {
+      icon: Orders,
+      name: 'Orders',
+      amount: status.orders,
+      gain: 20,
+      isCurrency: false,
+    },
+    {
+      icon: Customer,
+      name: 'Customers',
+      amount: status.customers,
+      gain: 10,
+      isCurrency: false,
+    },
+    {
+      icon: Rider,
+      name: 'Riders',
+      amount: status.riders,
+      gain: -3,
+      isCurrency: false,
+    },
+  ];
+
+
   return (
     <article className={styles.status}>
       <div className={styles.card}>

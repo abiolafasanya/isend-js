@@ -19,7 +19,7 @@ const Dashboard = () => {
     'status',
     'payment',
     'assignee',
-    // "progress"
+    "progress"
   ];
 
   useEffect(() => {
