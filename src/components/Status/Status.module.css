@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  src: local("Plus Jakarta Sans"), url("../../assets/fonts/Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf") format("truetype");
+}
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  overflow-x: hidden;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.status {
+  background-color: #ffffff;
+  padding: 1rem;
+  width: 92%;
+  margin: auto;
+  margin-top: 1rem;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.status h2 {
+  font-weight: 600;
+}
+.status .card {
+  display: flex;
+  gap: 0.5rem;
+}
+.status .card_content {
+  display: flex;
+  gap: 1rem;
+  border-left: 1px solid #e4e4e4;
+  padding: 1rem;
+  align-items: flex-start;
+}
+.status .card_content:first-child {
+  border-left: none;
+}
+.status .card_content .card_gain {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.status .card_content .card_badge_success {
+  padding: 0.2rem 1rem;
+  border-radius: 25px;
+  background-color: #e6fef0;
+  color: #5dc288;
+}
+.status .card_content .card_badge_danger {
+  padding: 0.2rem 1rem;
+  border-radius: 25px;
+  background-color: #fef0f0;
+  color: #F06565;
+}/*# sourceMappingURL=Status.module.css.map */

@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;700&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200&display=swap');
+
+html,
+body,
+#root,
+.app,
+.content{
+  height: 100%;
+  width: 100%;
+  font-family: 'Plus Jakarta Sans';
+}
+
+.app{
+  display: flex;
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: #e0e0e0;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #8080;
+}
+
+::-webkit-scrollbar-track:hover{
+  background:#555;
+}
+
+/* <td style={{ textAlign: "center", padding: 8, color: "#4EA977" }}><select value={item.Progress} style={{
+  border: "none",  height: 45, fontFamily: "Plus Jakarta Sans"
+}}  onChange={(event) => {
+  // update the value of item.Progress to the selected option
+  const newValue = event.target.value;
+  item.Progress = newValue;
+}} >
+  <option value="Pickup">Pickup</option>
+  <option value="About to move">About to move</option>
+  <option value="On the move">On the move</option>
+  <option value="At the location">At the location</option>
+</select></td> */
