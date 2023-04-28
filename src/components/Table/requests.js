@@ -7,9 +7,10 @@ const progressUpdateHandler = async (body) => {
 };
 
 const getAllRiders = async () => {
-  const { data } = await Axios.get('/v1/riders/');
+  const { data } = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/riders');
   if (data.error) return;
-  return data.data.riders;
+  console.log(data.rider)
+  return data.rider;
 };
 
 const assignRider = async (body) => {
@@ -25,7 +26,7 @@ const getOrderProgress = async () => {
 };
 
 const getOrderProgressId = async (id) => {
-  const { data } = await Axios.get('order_progress/'+id);
+  const { data } = await Axios.get('/order_progress/'+id);
   if (data.error) return;
   return data;
 };

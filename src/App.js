@@ -21,7 +21,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/authenticator" element={<Otp />} />
+        <Route path="/authenticate" element={<Otp />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

@@ -30,6 +30,8 @@ const Login = () => {
       }
       console.log(body);
 
+      // return navigate('/authenticate', {replace: true});
+
       const response = await Axios.post('/admin/login', body);
 
       if (response.status === 200 || response.status === 201) {

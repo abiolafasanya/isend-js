@@ -15,7 +15,11 @@ const Otp = () => {
     const body = {
       otp: e.target.otp.value,
     };
-    console.log(body);
+  //   handleSetAuth({isLoggedIn: true})
+  //   toast.success('Authenticated');
+  //   navigate('/', {replace: true});
+  //  return console.log(body);
+
     const { data } = await Axios.post('/admin/verify', body);
     console.log(data);
     if (data.success) {
