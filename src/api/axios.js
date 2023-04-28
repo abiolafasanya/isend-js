@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Axios = axios.create({
-  baseURL: "https://isend-v1.herokuapp.com/api/v1/",
+  baseURL: "https://isend-api-v1.herokuapp.com/api/v1/",
 });
 
 // Axios.defaults.headers.common[

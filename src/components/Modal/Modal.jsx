@@ -15,7 +15,6 @@ const Modal = () => {
     message,
     setMessage,
     setEvent,
-    setError
   } = useApp();
 
   const handleSubmit = async (e) => {
@@ -28,7 +27,6 @@ const Modal = () => {
 
       const request = await updateStatus(body);
       if (request.status === 'success') {
-        setError(false);
         console.log(request);
         toggleModal();
         setCustomModalTitle('Payment updated');
@@ -39,7 +37,6 @@ const Modal = () => {
       }
       return;
     } else {
-      setError(true);
       setCustomModalTitle('Payement failed');
       setMessage('Opps something went wrong while processing the request');
     }
@@ -74,7 +71,7 @@ const Modal = () => {
             <main>
               <form onSubmit={handleSubmit}>
                 <div className={styles.form_group}>
-                  {/* <select
+                  <select
                     defaultValue="Select Status"
                     className={styles.status_option}
                     id="status"
@@ -82,7 +79,7 @@ const Modal = () => {
                     <option value="pending">Pending</option>
                     <option value="paid">Paid</option>
                     <option value="failed">Failed</option>
-                  </select> */}
+                  </select>
                   <input
                     type="text"
                     name="reference_number"
@@ -102,6 +99,7 @@ const Modal = () => {
                 </div>
               </form>
             </main>
+            <footer></footer>
           </article>
         </div>
       )}
@@ -112,7 +110,7 @@ const Modal = () => {
 export default Modal;
 
 export const CustomModal = ({ title, message }) => {
-  const { toggleCustomModal, openCustomModal, error } = useApp();
+  const { toggleCustomModal, openCustomModal } = useApp();
   return (
     <>
       {openCustomModal && (
@@ -125,7 +123,7 @@ export const CustomModal = ({ title, message }) => {
               onClick={toggleCustomModal}
             />
             <header>
-              <h2 style={{color: error ? 'red':'green' }}>{title}</h2>
+              <h2 style={{  }}>{title}</h2>
             </header>
             <main className={styles.modal_message}>{message}</main>
           </article>

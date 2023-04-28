@@ -53,7 +53,7 @@ const Pagination = ({ pagination, setPageData }) => {
             <option value="100">100</option>
           </select>
           <div>
-            <span>Showing</span>
+            <span>{}</span>
             <span>{}</span>
             <span>{}</span>
           </div>

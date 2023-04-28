@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Login.module.css';
 import Arror from '../../../assets/images/arrow.svg';
 import Axios from '../../../api/axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import useApp from '../../../hooks/useApp';
 
 const Login = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const { auth } = useApp();
+
+  useEffect(() => {
+    if (auth?.isLoggedIn) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [auth?.isLoggedIn, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,13 +29,13 @@ const Login = () => {
         return;
       }
       console.log(body);
-      const url = 'https://isend-v1.herokuapp.com/api/v1/users/login';
-      const response = await Axios.post(url, body);
+
+      const response = await Axios.post('/admin/login', body);
 
       if (response.status === 200 || response.status === 201) {
         toast.success('Login successful');
         // redirect user to desired page
-        navigate(['/dashboard', '/']); 
+        navigate('/authenticate', {replace: true});
       } else {
         toast.error('Invalid credentials');
       }

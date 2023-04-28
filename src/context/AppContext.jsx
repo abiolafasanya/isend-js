@@ -17,6 +17,27 @@ export const AppProvider = ({ children }) => {
   const [events, setEvent] = useState(false);
   const [error, setError] = useState(false);
 
+  const [auth, setAuth] = useState({ isLoggedIn: false, token: null, user: null });
+
+  useEffect(() => {
+    setAuth((prev) => {
+      const auth = localStorage.getItem('auth');
+      if (auth) return JSON.parse(auth);
+      return prev;
+    });
+  }, []);
+
+  const handleSetAuth = (auth) => {
+    localStorage.setItem('auth', JSON.stringify(auth));
+    setAuth(auth);
+    return auth;
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth');
+    setAuth({ isLoggedIn: false });
+  };
+
   const storeOrderId = (order_id) => {
     setOrderId(order_id);
     console.log('track order_id: ', order_id);
@@ -61,6 +82,9 @@ export const AppProvider = ({ children }) => {
         setEvent,
         error,
         setError,
+        auth,
+        handleSetAuth,
+        handleLogout
       }}
     >
       {children}

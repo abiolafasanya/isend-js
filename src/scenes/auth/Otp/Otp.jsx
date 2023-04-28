@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Otp.module.css';
 import Arror from '../../../assets/images/arrow.svg';
 import Axios from '../../../api/axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import
+import useApp from '../../../hooks/useApp';
+import { useNavigate } from 'react-router-dom';
 
 const Otp = () => {
-  const [message, setMessage] = useState();
-  const notify = () => toast(message);
+  const { handleSetAuth } = useApp();
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     const body = {
-      email: e.target.email.value,
-      password: e.target.password.value,
+      otp: e.target.otp.value,
     };
     console.log(body);
-    const url = 'https://isend-v1.herokuapp.com/api/v1/users/login';
-    const { data } = await Axios.post(url, body);
+    const { data } = await Axios.post('/admin/verify', body);
     console.log(data);
     if (data.success) {
-      setMessage('Login successful');
+      toast.success('Authenticated');
+      handleSetAuth({isLoggedIn: true});
+      setTimeout(() => {
+        navigate('/', {replace: true});
+      }, 1000);
     }
     if (data.error) {
-      setMessage('Login error');
+      toast.error(data.message);
     }
-    notify();
   };
   return (
     <div className={styles.otp}>
@@ -34,9 +36,9 @@ const Otp = () => {
         <h2>Enter your Otp Code</h2>
         <form onSubmit={handleLogin}>
           <input
-            type="email"
-            name="email"
-            id="email"
+            type="text"
+            name="otp"
+            id="otp"
             className={styles.form_input}
           />
           <button>

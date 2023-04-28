@@ -20,8 +20,9 @@ function App() {
           <Route path="/transactions" element={<Construction />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
-        <Route path="/signin" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/authenticator" element={<Otp />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
