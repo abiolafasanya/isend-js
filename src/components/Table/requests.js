@@ -1,32 +1,37 @@
 import Axios from '../../api/axios';
 
 const progressUpdateHandler = async (body) => {
-  const { data } = await Axios.patch('/admin/orders', body);
+  let url = 'https://isend-v1.herokuapp.com/api/v1/admin/orders';
+  const { data } = await Axios.patch(url, body);
   if (data.error) return;
   return data;
 };
 
 const getAllRiders = async () => {
-  const { data } = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/riders');
+  let url = 'https://isend-v1.herokuapp.com/api/v1/riders/';
+  const { data } = await Axios.get(url);
   if (data.error) return;
-  console.log(data.rider)
-  return data.rider;
+  // console.log(data.data.riders)
+  return data.data.riders;
 };
 
 const assignRider = async (body) => {
-  const { data } = await Axios.patch('/admin/assignee', body);
+  let url = 'https://isend-v1.herokuapp.com/api/v1/admin/assignee';
+  const { data } = await Axios.patch(url, body);
   if (data.error) return;
   return data;
 };
 
 const getOrderProgress = async () => {
-  const { data } = await Axios.get('/order_progress/');
+  let url = 'https://isend-v1.herokuapp.com/api/v1/order_progress/';
+  const { data } = await Axios.get(url);
   if (data.error) return;
   return data;
 };
 
 const getOrderProgressId = async (id) => {
-  const { data } = await Axios.get('/order_progress/'+id);
+  let url = 'https://isend-v1.herokuapp.com/api/v1/order_progress/'+id;
+  const { data } = await Axios.get(url);
   if (data.error) return;
   return data;
 };
