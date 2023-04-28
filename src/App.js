@@ -5,6 +5,7 @@ import Layout from './components/Layout/Layout';
 import PageNotFound from './components/404.jsx';
 import Construction from './components/Construction';
 import Login from './scenes/auth/Login/Login.jsx';
+import Otp from './scenes/auth/Otp/Otp.jsx';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route path="/transactions" element={<Construction />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/authenticator" element={<Otp />} />
       </Routes>
     </BrowserRouter>
   );

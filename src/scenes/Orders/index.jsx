@@ -2,7 +2,7 @@ import styles from '../dashboard/Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import Axios from '../../api/axios';
 import Pagination from './component/pagination';
-import Modal, { CustomModal } from '../../components/Modal/Modal'
+import Modal from '../../components/Modal/Modal'
 import Navbar from '../../components/Navbar/Navbar';
 import Table from '../../components/Table/Table';
 import useApp from '../../hooks/useApp';
@@ -26,6 +26,11 @@ const Orders = () => {
 
   useEffect(() => {
     async function getTableData() {
+      const getOrder = async () => {
+        const Endpoint = `https://isend-v1.herokuapp.com/api/v1/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
+        const { data } = await Axios.get(Endpoint);
+        return data;
+      };
       const data = await getOrder();
       if (!data) {
         console.log('Error getting order data');
@@ -45,12 +50,6 @@ const Orders = () => {
       console.log('cleanup complete');
     };
   }, [pageData, events]);
-
-  const getOrder = async () => {
-    const Endpoint = `https://isend-v1.herokuapp.com/api/v1/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
-    const { data } = await Axios.get(Endpoint);
-    return data;
-  };
 
   return (
     <main className={styles.container}>

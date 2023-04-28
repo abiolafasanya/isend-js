@@ -3,12 +3,12 @@ import Navbar from '../../components/Navbar/Navbar';
 import Status from '../../components/Status/Status';
 import Table from '../../components/Table/Table';
 import Axios from '../../api/axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Pagination from '../Orders/component/pagination';
 import Modal from '../../components/Modal/Modal';
 
 const Dashboard = () => {
-  const [tableData, setTableD] = useState();
+  const [tableData, setTableData] = useState();
   const [pagination, setPagination] = useState();
   const [pageData, setPageData] = useState({ limit: 5, page: 1 });
   const TableTitle = [
@@ -21,6 +21,12 @@ const Dashboard = () => {
     'assignee',
     "progress"
   ];
+
+  const getOrder = useCallback(async () => {
+    const Endpoint = `https://isend-v1.herokuapp.com/api/v1/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
+    const { data } = await Axios.get(Endpoint);
+    return data;
+  }, [pageData]);
 
   useEffect(() => {
     async function getTableData() {
@@ -35,7 +41,7 @@ const Dashboard = () => {
         return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
       });
       
-      setTableD(sortByDesc);
+      setTableData(sortByDesc);
       setPagination(data.pagination);
     }
     getTableData();
@@ -43,13 +49,10 @@ const Dashboard = () => {
     return () => {
       console.log('cleanup complete');
     };
-  }, [pageData]);
+  }, [getOrder, pageData]);
 
-  const getOrder = async () => {
-    const Endpoint = `https://isend-v1.herokuapp.com/api/v1/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
-    const { data } = await Axios.get(Endpoint);
-    return data;
-  };
+
+
 
   return (
     <main className={styles.container}>

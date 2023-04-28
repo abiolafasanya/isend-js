@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Modal.module.css';
 import useApp from '../../hooks/useApp';
 import Cancel from '../../assets//icons/cancel.svg';
@@ -15,8 +15,8 @@ const Modal = () => {
     message,
     setMessage,
     setEvent,
+    setError
   } = useApp();
-  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ const Modal = () => {
       return;
     } else {
       setError(true);
-      // setCustomModalTitle('Payement failed');
+      setCustomModalTitle('Payement failed');
       setMessage('Opps something went wrong while processing the request');
     }
   };

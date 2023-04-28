@@ -6,13 +6,13 @@
   top: 0;
   width: 100%;
   background: url(../../../assets/images/Group\ 43004.svg);
-  height: 58px;
+  height: 40px;
   width: 100%;
 }
 
 .bottom {
   position: fixed;
-  height: 58px;
+  height: 40px;
   width: 100%;
   background: url(../../../assets/images/Group\ 43003.svg);
   bottom: 0;
@@ -45,7 +45,6 @@
   outline: none;
   padding: 10px;
   background: #fff;
-  border: 5px;
 }
 .form_input:active, .form_input:focus {
     background: #fff;   

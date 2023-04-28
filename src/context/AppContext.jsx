@@ -28,7 +28,6 @@ export const AppProvider = ({ children }) => {
 
   const toggleCustomModal = () => {
     console.log(openCustomModal);
-    // setError(false);
     // setMessage('')
     setOpenCustomModal((modal) => !modal);
   };

@@ -1,0 +1,66 @@
+.otp {
+    width: 100%;
+  }
+  .top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: url(../../../assets/images/Group\ 43004.svg);
+    height: 40px;
+    width: 100%;
+  }
+  
+  .bottom {
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    background: url(../../../assets/images/Group\ 43003.svg);
+    bottom: 0;
+  }
+  
+  .form {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #efefef;
+  }
+  
+  .form h2 {
+    margin-bottom: 2rem;
+  }
+  
+  .form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 378px;
+  }
+  
+  .form_input {
+    height: 40px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    background: #fff;
+  }
+  .form_input:active, .form_input:focus {
+      background: #fff;   
+  }
+  
+  form button {
+    background-color: #1d1f22;
+    color: #fff;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  form img {
+    width: 30px;
+  }
+  

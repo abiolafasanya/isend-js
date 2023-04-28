@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import styles from './Login.module.css';
+import styles from './Otp.module.css';
 import Arror from '../../../assets/images/arrow.svg';
 import Axios from '../../../api/axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import
 
-const Login = () => {
+const Otp = () => {
   const [message, setMessage] = useState();
   const notify = () => toast(message);
   const handleLogin = async (e) => {
@@ -28,21 +28,15 @@ const Login = () => {
     notify();
   };
   return (
-    <div className={styles.login}>
+    <div className={styles.otp}>
       <div className={styles.top}></div>
       <div className={styles.form}>
-        <h2>Welcome Back!!</h2>
+        <h2>Enter your Otp Code</h2>
         <form onSubmit={handleLogin}>
           <input
             type="email"
             name="email"
             id="email"
-            className={styles.form_input}
-          />
-          <input
-            type="password"
-            name="password"
-            id="password"
             className={styles.form_input}
           />
           <button>
@@ -51,11 +45,10 @@ const Login = () => {
         </form>
       </div>
       <div className={styles.bottom}>
-      <ToastContainer />
-
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default Login;
+export default Otp;
