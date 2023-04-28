@@ -39,6 +39,7 @@ const Otp = () => {
             type="text"
             name="otp"
             id="otp"
+            placeholder='Enter your Otp Code'
             className={styles.form_input}
           />
           <button>

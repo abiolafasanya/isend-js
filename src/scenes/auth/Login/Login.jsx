@@ -61,12 +61,14 @@ const Login = () => {
             type="email"
             name="email"
             id="email"
+            placeholder='Email Address'
             className={styles.form_input}
           />
           <input
             type="password"
             name="password"
             id="password"
+            placeholder='Password'
             className={styles.form_input}
           />
           <button>
