@@ -24,12 +24,11 @@ const Status = () => {
         revenues += ordersArr[i].total;
       }
        const data = {
-        revenues: revenues,
-        orders: orders.pagination.totalResults,
-        customers: customers.pagination.totalResults,
-        riders: riders.pagination.totalResults,
-      }
-      console.log(revenues, orders, customers, riders)
+         revenues: revenues,
+         orders: orders.pagination.totalResults,
+         customers: customers.pagination.totalResults,
+         riders: riders.pagination.totalResults,
+       };
       setStatus(data);
       orderGain(orders)
 
@@ -45,14 +44,12 @@ const Status = () => {
     for (let i = 0; i < orderArray.length; i++) {
       let orderDate = new Date(orderArray[i].timestamp);
       let timeDiff = Math.abs(today.getTime() - orderDate.getTime());
-      let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+      let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       if (diffDays <= 7) {
         totalGain += orderArray[i].total - orderArray[i].cogs;
+        return totalGain;
       }
-    }
-    
-    console.log("Total gain in the last 7 days:", totalGain);
-    
+    }    
   }
 
 

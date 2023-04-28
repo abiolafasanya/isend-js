@@ -58,6 +58,9 @@ form button {
   justify-content: center;
   gap: 3rem;
   align-items: center;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
 form img {

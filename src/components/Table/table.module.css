@@ -192,4 +192,5 @@ select {
   font-size: 16px;
   color: #333;
   background-color: #fff;
+  width: 200px !important;
 }

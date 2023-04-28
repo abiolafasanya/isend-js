@@ -9,11 +9,14 @@ import { useEffect, useState } from 'react';
 import {
   progressUpdateHandler,
   getOrderProgress,
+  getAllRiders,
+  assignRider,
 } from './requests';
 
 const Table = ({ tableHeader, tableData }) => {
-  
   const [progress, setProgress] = useState([]);
+  const [riders, setRiders] = useState([]);
+  const [orders, setOrders] = useState(() => tableData);
 
   useEffect(() => {
     const progressData = async () => {
@@ -21,9 +24,11 @@ const Table = ({ tableHeader, tableData }) => {
         (progress) => progress.data.progress
       );
       setProgress(data);
+      setRiders(await getAllRiders());
+      setOrders(tableData);
     };
     progressData();
-  }, []);
+  }, [tableData]);
 
   const {
     toggleModal,
@@ -37,16 +42,13 @@ const Table = ({ tableHeader, tableData }) => {
   } = useApp();
 
   const handlePaymentModal = async (order_id) => {
-    console.log('table order', order_id);
     if (order_id === undefined) {
       setError(true);
-      toggleCustomModal();
       setCustomModalTitle('Operation failed');
       setMessage(
         'You cant update this payment because the Order Id is: ' + order_id
       );
-      setError(false);
-      setCustomModalTitle('');
+      toggleCustomModal();
       return;
     }
     setError(false);
@@ -94,6 +96,28 @@ const Table = ({ tableHeader, tableData }) => {
     await progressUpdateHandler(body);
   };
 
+  const handleAssignRider = async (e) => {
+    const event = JSON.parse(e.currentTarget.value);
+    const body = {
+      assignee: {
+        name: event.name,
+        phone_number: event.phone_number,
+      },
+      order_id: event.order_id,
+    };
+    console.log(body);
+    if (body.order_id === undefined) {
+      setError(true);
+      setMessage('Order Id is required');
+      setCustomModalTitle('Operation failed!');
+      toggleCustomModal();
+      return;
+    }
+    setError(false);
+    const data = await assignRider(body);
+    console.log(data);
+  };
+
   return (
     <div className={styles.table}>
       <CustomModal title={customModalTitle} message={message} />
@@ -117,7 +141,7 @@ const Table = ({ tableHeader, tableData }) => {
           </tr>
         </thead>
         <tbody>
-          {tableData?.map((data, id) => (
+          {orders?.map((data, id) => (
             <tr className={styles.tableData} key={id}>
               <td className={styles.ellipsis}>{formatDate(data.updatedAt)}</td>
               <td>{data.category}</td>
@@ -137,25 +161,33 @@ const Table = ({ tableHeader, tableData }) => {
                 </button>
               </td>
               <td className={styles.status}>
-                <select>
-                  {data.assignee.name ? (
-                    <option value={data.assignee.name}>
-                      {data.assignee.name}
+                <select onChange={handleAssignRider}>
+                  <option disabled selected>
+                    {data.assignee.name ? data.assignee.name : 'Unassigned'}
+                  </option>
+                  {riders.map((rider, id) => (
+                    <option
+                      key={rider.id + `-${id}`}
+                      value={JSON.stringify({
+                        ...rider,
+                        order_id: data.order_id,
+                      })}
+                    >
+                      {rider.name}
                     </option>
-                  ) : (
-                    <option value="Unassigned">Unassigned</option>
-                  )}
+                  ))}
                 </select>
               </td>
               <td>
-                <select
-                  id="progress_status"
-                  onChange={handleProgress}
-                >
+                <select id="progress_status" onChange={handleProgress}>
+                  <option disabled selected>
+                    {data.order_progress.title
+                      ? data.order_progress.title
+                      : data.order_progress}
+                  </option>
                   {progress.map((progress, id) => (
                     <option
                       key={progress.id + `-${id}`}
-                      selected={data.order_progress.title === progress.title}
                       value={JSON.stringify({
                         ...progress,
                         order_id: data.order_id,

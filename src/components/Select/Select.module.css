@@ -1,0 +1,29 @@
+.select {
+  padding: 0.5rem;
+  border: 1px solid rgba(84, 95, 125, 0.15);
+  border-radius: 5px;
+  position: relative;
+}
+
+.option {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(84, 95, 125, 0.15);
+  width: 100%;
+  left: 0;
+  top: 35px;
+  background-color: #f8f8f8;
+  z-index: 1;
+  width: 200px;
+}
+
+.option .item {
+    padding: .5rem;
+}
+
+
+.option .item:hover {
+    background-color: #4089f7;
+    color: #f8f8f8;
+}

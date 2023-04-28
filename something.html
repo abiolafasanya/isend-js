@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="itme" id="item">
+        <option>--select and option--
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+            <option value="d">D</option>
+        </option>
+    </select>
+</body>
+</html>
+<!-- 
+{progress.map((progress, id) => (
+    // <option
+    //   key={progress.id + `-${id}`}
+    //   // selected={data.order_progress.title === progress.title}
+    //   value={JSON.stringify({
+    //     ...progress,
+    //     order_id: data.order_id,
+    //   })}
+    // >
+    //   {progress.title}
+    // </option>
+  ))} -->
+
+  <select id="progress_status" onChange={handleProgress}>
+    <option>
+      {data.order_progress.title
+        ? data.order_progress.title
+        : data.order_progress}
+    </option>
+    {/* <option>{(data.order_progress.title || data.order_progress) !== progress[0].title && progress[0].title}</option>
+    <option>{(data.order_progress.title || data.order_progress) !== progress[1].title && progress[1].title}</option>
+    <option>{(data.order_progress.title || data.order_progress) !== progress[2].title && progress[2].title}</option>
+    <option>{(data.order_progress.title || data.order_progress) !== progress[3].title && progress[3].title}</option> */}
+    <option>{progress[1].title}</option>
+    <option>{progress[2].title}</option>
+    <option>{progress[3].title}</option>
+  </select>

@@ -42,7 +42,7 @@
 
 .modal .card h2 {
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .modal .card form {
@@ -58,11 +58,10 @@
 }
 
 .modal .form_group select {
-    height: 58px;
+  height: 58px;
   border-radius: 5px;
   background-color: #ececec6b; /* sets background color to white */
   color: #333; /* sets text color to dark gray */
-  margin-right: 10px; /* adds margin to the right of the select element */
   border: 1px solid rgba(84, 95, 125, 0.15);
   outline: none;
 }
@@ -78,35 +77,37 @@
   border-radius: 5px;
   background-color: #ececec6b; /* sets background color to white */
   color: #333; /* sets text color to dark gray */
-  margin-right: 10px; /* adds margin to the right of the select element */
   border: 1px solid rgba(84, 95, 125, 0.15);
   outline: none;
 }
 
 .modal .form_group .form_btn {
-    /* background: linear-gradient(0deg, #EBE9E5, #EBE9E5),
-linear-gradient(0deg, #F1F1F1, #F1F1F1); */
-display: flex;
-width: 100%;
-justify-content: space-between;
-
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
- .btn_secondary {
-    width: 244px;
-    background-color: #EBE9E5 !important;
+.form_btn {
+  align-items: center;
+}
+
+.btn_secondary {
+  width: 244px;
+  display: inline-block;
+  background-color: #ebe9e5 !important;
 }
 
 .btn_warn {
-    width: 244px;
-    background-color: #FFC24D !important;
-    color: #000 !important;
+  width: 244px;
+  display: inline-block;
+  background-color: #ffc24d !important;
+  color: #000 !important;
 }
 
 .close_icon {
-    position: absolute;
-    right: 30px;
-    top: 25px;
+  position: absolute;
+  right: 30px;
+  top: 25px;
 }
 
 .modal header {
@@ -128,11 +129,11 @@ justify-content: space-between;
 
 .modal main .status_input {
   padding: 0.5rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 .modal main button {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 1rem;

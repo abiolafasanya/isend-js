@@ -74,7 +74,7 @@ const Modal = () => {
             <main>
               <form onSubmit={handleSubmit}>
                 <div className={styles.form_group}>
-                  <select
+                  {/* <select
                     defaultValue="Select Status"
                     className={styles.status_option}
                     id="status"
@@ -82,7 +82,7 @@ const Modal = () => {
                     <option value="pending">Pending</option>
                     <option value="paid">Paid</option>
                     <option value="failed">Failed</option>
-                  </select>
+                  </select> */}
                   <input
                     type="text"
                     name="reference_number"
@@ -102,7 +102,6 @@ const Modal = () => {
                 </div>
               </form>
             </main>
-            <footer></footer>
           </article>
         </div>
       )}
