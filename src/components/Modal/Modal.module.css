@@ -15,7 +15,7 @@
 
 .modal .card {
   width: 596px;
-  height: 334px;
+  /* min-height: 334px; */
   padding: 3rem 2rem;
   background-color: #fff;
   border-radius: 5px;

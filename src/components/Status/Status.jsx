@@ -8,8 +8,6 @@ import { useEffect, useState } from 'react';
 import Axios from '../../api/axios';
   
 
-
-
 const Status = () => {
   const [status, setStatus] = useState({revenues: 0, orders: 0, customers: 0, riders: 0})
   useEffect(() => {
@@ -32,8 +30,6 @@ const Status = () => {
        console.log(data);
       setStatus(data);
       orderGain(orders)
-
-  
     }
     handlerGetStatus()
   }, [])

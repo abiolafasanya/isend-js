@@ -9,7 +9,7 @@ import useApp from '../../../hooks/useApp';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { auth } = useApp();
+  const { auth, handleSetAuth } = useApp();
 
   useEffect(() => {
     if (auth?.isLoggedIn) {
@@ -24,19 +24,18 @@ const Login = () => {
         email: e.target.email.value,
         password: e.target.password.value,
       };
+      
       if (body.email === '' || body.password === '') {
         toast.error('Please fill in your email and password');
         return;
       }
-      console.log(body);
-
-      // return navigate('/authenticate', {replace: true});
-
+      
       const response = await Axios.post('/admin/login', body);
-
+      
       if (response.status === 200 || response.status === 201) {
         toast.success('Login successful');
         // redirect user to desired page
+        handleSetAuth({user: {email: body.email}})
         navigate('/authenticate', {replace: true});
       } else {
         toast.error('Invalid credentials');

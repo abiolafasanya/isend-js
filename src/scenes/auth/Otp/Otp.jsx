@@ -12,8 +12,10 @@ const Otp = () => {
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
+    const email = JSON.parse(localStorage.getItem('auth')).user.email
     const body = {
       otp: e.target.otp.value,
+      email
     };
   //   handleSetAuth({isLoggedIn: true})
   //   toast.success('Authenticated');
@@ -24,7 +26,7 @@ const Otp = () => {
     console.log(data);
     if (data.success) {
       toast.success('Authenticated');
-      handleSetAuth({isLoggedIn: true});
+      handleSetAuth({isLoggedIn: true, user: {email}});
       setTimeout(() => {
         navigate('/', {replace: true});
       }, 1000);
