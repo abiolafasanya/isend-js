@@ -57,20 +57,20 @@ const Table = ({ tableHeader, tableData }) => {
   };
 
   const stateOfStatus = (index) =>
-    tableData[index].order_status === 'pending'
+    tableData[index]?.order_status === 'pending'
       ? 'status-pending'
-      : tableData[index].order_status === 'active'
+      : tableData[index]?.order_status === 'active'
       ? 'status-active'
-      : tableData[index].order_status === 'canceled'
+      : tableData[index]?.order_status === 'canceled'
       ? 'status-canceled'
       : 'status-completed';
 
   const paymentStatus = (index) =>
-    tableData[index].payment_status === 'paid'
+    tableData[index]?.payment_status === 'paid'
       ? 'btn-paid'
-      : tableData[index].payment_status === 'pending'
+      : tableData[index]?.payment_status === 'pending'
       ? 'btn-pending'
-      : tableData[index].payment_status === 'failed'
+      : tableData[index]?.payment_status === 'failed'
       ? 'btn-failed'
       : '';
 
@@ -150,7 +150,7 @@ const Table = ({ tableHeader, tableData }) => {
               </td>
               <td>{formatCurrency(data.total)}</td>
               <td className={styles[`${stateOfStatus(id)}`]}>
-                {data.order_status}
+                {data?.order_status}
               </td>
               <td className={''}>
                 <button
@@ -163,7 +163,7 @@ const Table = ({ tableHeader, tableData }) => {
               <td className={styles.status}>
                 <select onChange={handleAssignRider}>
                   <option disabled selected>
-                    {data.assignee.name ? data.assignee.name : 'Unassigned'}
+                    {data.assignee.name ? data?.assignee.name : 'Unassigned'}
                   </option>
                   {riders.map((rider, id) => (
                     <option
