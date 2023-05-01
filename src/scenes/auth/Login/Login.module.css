@@ -50,19 +50,13 @@
     background: #fff;   
 }
 
-form button {
-  background-color: #1d1f22;
+button {
+  background-color: #3e3f41;
   color: #fff;
-  display: flex;
-  height: 40px;
-  justify-content: center;
-  gap: 3rem;
-  align-items: center;
-  border: none;
-  outline: none;
-  border-radius: 5px;
 }
+
 
 form img {
   width: 30px;
 }
+
