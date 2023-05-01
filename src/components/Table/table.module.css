@@ -28,7 +28,7 @@ ul[role=list],
 ol[role=list] {
   list-style: none;
 }
-table_search
+
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
@@ -164,7 +164,7 @@ select {
 }
 .table tbody .btn-pending {
   background-color: #FFCD4D;
-  color: set-text-color(#FFCD4D);
+  color: #000;;
 }
 .table tbody .btn-paid {
   background-color: #4EA977;
@@ -193,4 +193,14 @@ select {
   color: #333;
   background-color: #fff;
   width: 200px !important;
+}
+
+.table .table_searhbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table .table_searhbox button {
+  background-color: #FFCD4D;
+  color: #000;
 }

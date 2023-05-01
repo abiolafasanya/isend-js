@@ -7,6 +7,7 @@ import Construction from './components/Construction';
 import Login from './scenes/auth/Login/Login.jsx';
 import Register from './scenes/auth/Register/Register.jsx';
 import Otp from './scenes/auth/Otp/Otp.jsx';
+import CreateOrder from './scenes/Orders/CreateOrder.jsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/transactions" element={<Construction />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
+          <Route path="/create-order" element={<CreateOrder />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/authenticate" element={<Otp />} />

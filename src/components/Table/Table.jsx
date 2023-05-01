@@ -5,6 +5,7 @@ import SearchIcon from '../../assets/images/Icon.svg';
 import useApp from '../../hooks/useApp';
 import { CustomModal } from '../Modal/Modal';
 import { useEffect, useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 
 import {
   progressUpdateHandler,
@@ -12,6 +13,8 @@ import {
   getAllRiders,
   assignRider,
 } from './requests';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Table = ({ tableHeader, tableData }) => {
   const [progress, setProgress] = useState([]);
@@ -131,6 +134,10 @@ const Table = ({ tableHeader, tableData }) => {
           placeholder="Search Orders, Deliveries"
         />
         <img src={SearchIcon} alt="search icon" />
+
+        <Link to="/create-order">
+          <Button startIcon={<AddIcon />}>Create Order</Button>
+        </Link>
       </div>
       <table>
         <thead>

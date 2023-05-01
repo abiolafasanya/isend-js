@@ -1,0 +1,118 @@
+.create-order {
+  width: 100%;
+  background-color: #f9f9f9;
+  height: 100%;
+  /* min-height: 100vh; */
+}
+
+.create-order .header {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1.5rem 5rem;
+}
+
+.create-order .header h2 {
+  font-family: 500;
+}
+
+.create-order .main {
+  width: 100%;
+  padding: 2rem 5rem;
+  /* height: 100%; */
+  background-color: #f9f9f9;
+}
+
+.main .sections {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 14rem;
+  margin-top: 3rem;
+  height: 100%;
+}
+
+.sections .area-a {
+  margin: 2rem 0;
+  height: 100%;
+  width: 45%;
+}
+
+.pickup_details {
+  width: 500px;
+  height: 44px;
+  height: 100%;
+}
+
+.form_control {
+  display: block;
+  width: 100%;
+  /* display: block;
+   outline: none;
+   border: 1px solid #EBE9E5;
+   margin-bottom: 1rem; */
+}
+
+label {
+  margin: 0.5rem;
+  font-size: 14px;
+  display: block;
+}
+
+.form-group {
+  margin-top: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.form_control_1 {
+  width: 80%;
+}
+
+.tel_list {
+  width: 20%;
+}
+
+.warning_alert {
+  width: 90%;
+  margin-top: 1rem;
+}
+.sections .side-b {
+  height: 100%;
+  width: 45%;
+  display: flex;
+}
+
+.total_container {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+
+.total_container .counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 1px solid #cfcbc3;
+  border-radius: 5px;
+  height: 60px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.counter button {
+    color: #000;
+    height: 100%;
+    text-align: center;
+}
+
+.proceed_btn {
+    background-color: #FFC24D;
+    margin-top: 1rem;
+    color: #000;
+}
+
+.proceed_btn:hover {
+    background-color: #ffd485;
+}
