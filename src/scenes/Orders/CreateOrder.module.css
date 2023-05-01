@@ -106,13 +106,3 @@ label {
     height: 100%;
     text-align: center;
 }
-
-.proceed_btn {
-    background-color: #FFC24D;
-    margin-top: 1rem;
-    color: #000;
-}
-
-.proceed_btn:hover {
-    background-color: #ffd485;
-}

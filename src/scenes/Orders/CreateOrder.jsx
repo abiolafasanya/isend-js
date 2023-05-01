@@ -219,7 +219,13 @@ const CreateOrder = () => {
               </Box>
             </Box>
             <Button
-              className={styles.proceed_btn}
+              //   className={styles.proceed_btn}
+              sx={{
+                color: '#000',
+                marginTop: '1rem',
+                backgroundColor: '#FFC24D',
+                ':hover': { backgroundColor: '#ffd485' },
+              }}
               variant="contained"
               fullWidth
             >
