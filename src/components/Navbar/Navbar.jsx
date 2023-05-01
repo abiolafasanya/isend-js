@@ -2,7 +2,6 @@ import styles from './Navbar.module.css';
 import Bell from '../../assets/icons/bell.svg';
 import Chat from '../../assets/icons/chat.svg';
 import Options from '../../assets/icons/options.svg';
-import { Link } from 'react-router-dom';
 import {
   Box,
   IconButton,
