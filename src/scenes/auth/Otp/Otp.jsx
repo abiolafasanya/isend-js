@@ -9,34 +9,30 @@ import { useNavigate } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 
 const Otp = () => {
-  const { handleSetAuth } = useApp();
+  const { auth, handleSetAuth } = useApp();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    const email = JSON.parse(localStorage.getItem('auth')).user.email;
+
+    setLoading(true);
+    const email = auth?.user.email;
     const body = {
       otp: e.target.otp.value,
       email,
     };
-
 
     if (body.otp === '') {
       toast.error('Please enter a valid otp code');
       return;
     }
 
-    //   handleSetAuth({isLoggedIn: true})
-    //   toast.success('Authenticated');
-    //   navigate('/', {replace: true});
-    //  return console.log(body);
-
     try {
       const { data, status } = await Axios.post('/admin/verify', body);
       console.log(data);
-      setLoading(true);
       if (data.success || status === 200) {
-        toast.success('Authenticated');
+        toast.success(data.message || 'Authenticated');
         setLoading(false);
         handleSetAuth({ isLoggedIn: true, user: { email } });
         setTimeout(() => {
@@ -44,7 +40,7 @@ const Otp = () => {
         }, 1000);
       }
       if (status === 401 || status === 400 || data.error) {
-        console.log('catch error: ' + data.error)
+        console.log('catch error: ' + data.error);
         toast.error(data.message);
         setLoading(false);
       }
@@ -80,23 +76,22 @@ const Otp = () => {
             variant="contained"
             type="submit"
             endIcon={<img src={Arror} alt="arrow icon" />}
-            style={{
-              backgroundColor: '#1d1f22',
-              color: '#fff',
-              ':hover': { backgroundColor: '#2e2f33', color: '#ccc' },
-            }}
+            style={btnStyle}
           >
-            {loading ? 'Authenticating' : 'Authenticate'}
+            {loading ? 'Authenticating...' : 'Authenticate'}
           </LoadingButton>
-          {/* <button>
-            Authenticate <img src={Arror} alt="arrow icon" />{' '}
-          </button> */}
         </form>
       </div>
       <div className={styles.bottom}></div>
       <ToastContainer />
     </div>
   );
+};
+
+const btnStyle = {
+  backgroundColor: '#1d1f22',
+  color: '#fff',
+  ':hover': { backgroundColor: '#2e2f33', color: '#ccc' },
 };
 
 export default Otp;

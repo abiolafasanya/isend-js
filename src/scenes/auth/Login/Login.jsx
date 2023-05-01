@@ -85,17 +85,10 @@ const Login = () => {
             variant="contained"
             type="submit"
             endIcon={<img src={Arror} alt="arrow icon" />}
-            style={{
-              backgroundColor: '#1d1f22',
-              color: '#fff',
-              ':hover': { backgroundColor: '#2e2f33', color: '#ccc' },
-            }}
+            style={btnStyle}
           >
-            {loading ? 'Authenticating' : 'Authenticate'}
+            {loading ? 'Authenticating...' : 'Authenticate'}
           </LoadingButton>
-          {/* <button>
-            Authenticate <img src={Arror} alt="arrow icon" />{' '}
-          </button> */}
         </form>
       </div>
       <div className={styles.bottom}></div>
@@ -103,6 +96,12 @@ const Login = () => {
       <ToastContainer />
     </div>
   );
+};
+
+const btnStyle = {
+  backgroundColor: '#1d1f22',
+  color: '#fff',
+  ':hover': { backgroundColor: '#2e2f33', color: '#ccc' },
 };
 
 export default Login;

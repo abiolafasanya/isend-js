@@ -17,7 +17,11 @@ export const AppProvider = ({ children }) => {
   const [events, setEvent] = useState(false);
   const [error, setError] = useState(false);
 
-  const [auth, setAuth] = useState({ isLoggedIn: false, token: null, user: null });
+  const [auth, setAuth] = useState({
+    isLoggedIn: false,
+    token: null,
+    user: null,
+  });
 
   useEffect(() => {
     setAuth((prev) => {
@@ -28,6 +32,10 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   const handleSetAuth = (auth) => {
+    const isAuth = localStorage.getItem('auth');
+    if (isAuth) {
+      localStorage.removeItem('auth');
+    }
     localStorage.setItem('auth', JSON.stringify(auth));
     setAuth(auth);
     return auth;
@@ -84,7 +92,7 @@ export const AppProvider = ({ children }) => {
         setError,
         auth,
         handleSetAuth,
-        handleLogout
+        handleLogout,
       }}
     >
       {children}
