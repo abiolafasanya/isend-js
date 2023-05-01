@@ -5,6 +5,7 @@ import Layout from './components/Layout/Layout';
 import PageNotFound from './components/404.jsx';
 import Construction from './components/Construction';
 import Login from './scenes/auth/Login/Login.jsx';
+import Register from './scenes/auth/Register/Register.jsx';
 import Otp from './scenes/auth/Otp/Otp.jsx';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/authenticate" element={<Otp />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

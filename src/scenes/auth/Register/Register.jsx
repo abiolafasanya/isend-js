@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Login.module.css';
+import styles from './Register.module.css';
 import Arror from '../../../assets/images/arrow.svg';
 import Axios from '../../../api/axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,9 +10,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
-  const { auth, handleSetAuth } = useApp();
+  const { auth } = useApp();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -29,22 +29,26 @@ const Login = () => {
       const body = {
         email: e.target.email.value,
         password: e.target.password.value,
+        phone_number: e.target.phone_number.value,
       };
 
-      if (body.email === '' || body.password === '') {
-        toast.error('Please fill in your email and password');
+      if (
+        body.email === '' ||
+        body.password === '' ||
+        body.phone_number === ''
+      ) {
+        toast.error('Please fill in your email, password and phone number');
         setLoading(false);
         return;
       }
 
-      const response = await Axios.post('/admin/login', body);
+      const response = await Axios.post('/admin/signup', body);
 
       if (response.status === 200 || response.status === 201) {
         setLoading(false);
-        toast.success('Login successful');
+        toast.success('Registration successful');
         // redirect user to desired page
-        handleSetAuth({ user: { email: body.email } });
-        navigate('/authenticate', { replace: true });
+        navigate('/login', { replace: true });
       } else {
         setLoading(false);
         toast.error('Invalid credentials');
@@ -67,14 +71,12 @@ const Login = () => {
     <div className={styles.login}>
       <div className={styles.top}></div>
       <div className={styles.form}>
-        <h2>Welcome Back!!</h2>
+        <h2>Register</h2>
         <form onSubmit={handleLogin}>
           <input
             type="email"
             name="email"
             id="email"
-            autoComplete="off"
-            defaultValue=""
             placeholder="Email Address"
             className={styles.form_input}
           />
@@ -100,6 +102,13 @@ const Login = () => {
               />
             )}
           </div>
+          <input
+            type="tel"
+            name="phone_number"
+            id="phone_number"
+            placeholder="Phone number"
+            className={styles.form_input}
+          />
           <LoadingButton
             loading={loading}
             loadingPosition="end"
@@ -125,4 +134,4 @@ const btnStyle = {
   ':hover': { backgroundColor: '#2e2f33', color: '#ccc' },
 };
 
-export default Login;
+export default Register;
