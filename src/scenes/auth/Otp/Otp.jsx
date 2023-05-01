@@ -29,12 +29,15 @@ const Otp = () => {
     }
 
     try {
-      const { data, status } = await Axios.post('/admin/verify', body);
+      const { data, status } = await Axios.post(
+        'https://isend-api-v1.herokuapp.com/api/v1/admin/verify',
+        body
+      );
       console.log(data);
       if (data.success || status === 200) {
         toast.success(data.message || 'Authenticated');
         setLoading(false);
-        handleSetAuth({ isLoggedIn: true, user: { email } });
+        handleSetAuth({ isLoggedIn: true, user: { email }, token: data.token });
         setTimeout(() => {
           navigate('/', { replace: true });
         }, 1000);

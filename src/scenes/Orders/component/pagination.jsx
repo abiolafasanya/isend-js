@@ -3,7 +3,8 @@ import styles from './paginate.module.css';
 const Pagination = ({ pagination, setPageData }) => {
 
   const prevPage = () => {
-    if (pagination.currentPage > 1) {
+
+    if (pagination?.currentPage > 1) {
       pagination.currentPage--;
       setPageData((data) => {
         const currentPage = { limit: data.limit, page: pagination.currentPage };
@@ -16,7 +17,7 @@ const Pagination = ({ pagination, setPageData }) => {
   };
 
   const nextPage = () => {
-    if (pagination.currentPage < pagination.totalPages) {
+    if (pagination?.currentPage < pagination.totalPages) {
       pagination.currentPage++;
       setPageData((data) => {
         const currentPage = { limit: data.limit, page: pagination.currentPage };

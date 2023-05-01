@@ -12,9 +12,9 @@ const Status = () => {
   const [status, setStatus] = useState({revenues: 0, orders: 0, customers: 0, riders: 0})
   useEffect(() => {
     async function handlerGetStatus() {
-      const {data: orders} = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/orders')
-      const {data: customers} = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/customers')
-      const {data: riders} = await Axios.get('https://isend-v1.herokuapp.com/api/v1/admin/riders')
+      const {data: orders} = await Axios.get('/admin/orders')
+      const {data: customers} = await Axios.get('/admin/customers')
+      const {data: riders} = await Axios.get('/admin/riders')
 
       let revenues = 0;
       let ordersArr = orders.order

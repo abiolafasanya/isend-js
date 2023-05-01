@@ -7,6 +7,7 @@ import Deliveries from '../../assets/icons/deliveries.svg';
 import Collapse from '../../assets/icons/Collapse.svg';
 import styles from './Sidebar.module.css';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 const links = [
   { name: 'Dashboard', href: '/', icon: Dashboard },
@@ -17,12 +18,12 @@ const links = [
 ];
 
 const Sidebar = () => {
-  // eslint-disable-next-line
+  const [close, setClose] = useState(false)
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${close ? styles['close-sidebar'] : ''}`}>
       <section className={styles.sidebar_section1}>
-        <img src={Logo} alt="logo" />
-        <img src={Collapse} alt="logo" />
+        {!close && <img src={Logo} alt="logo" />}
+        <img src={Collapse} alt="logo" onClick={() => setClose(close => ! close)}/>
       </section>
       <section className={styles.sidebar_section2}>
         <menu>
@@ -35,7 +36,7 @@ const Sidebar = () => {
               : styles.nothing
           }>
               <img src={link.icon} alt="icon" />
-              <span>{link.name}</span>
+              {!close && <span>{link.name}</span>}
             </NavLink>
           ))}
         </menu>

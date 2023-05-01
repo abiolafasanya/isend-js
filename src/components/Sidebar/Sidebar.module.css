@@ -106,3 +106,7 @@ select {
 .sidebar_section2 menu .active {
   background-color: #f0f0f0;
 }
+
+.close-sidebar {
+  width: 150px;
+}
