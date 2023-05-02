@@ -1,8 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import styles from '../CreateOrder.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const OrderCompleted = () => {
+const OrderCompleted = ({detail}) => {
+  const navigate = useNavigate()
   return (
     <Box className={styles['create-order']}>
       <header className={styles.header}>
@@ -17,15 +19,16 @@ const OrderCompleted = () => {
             Order Created{' '}
           </Typography>
           <Typography component={'p'}>
-            A tracking Id and Invoice has been sent to [email or phone number ]{' '}
+            A tracking Id and Invoice has been sent to [{`${detail.receivers_email} or ${detail.receivers_phonenumber}`} ]{' '}
           </Typography>
           <Button
-            sx={{
+            sx={{ 
               backgroundColor: '#FFC24D',
               color: '#000',
               ':hover': { backgroundColor: '#ffc24d' },
               width: '200px'
             }}
+            onClick={() => navigate('/orders')}
           >
             Home
           </Button>

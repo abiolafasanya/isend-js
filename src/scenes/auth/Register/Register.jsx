@@ -22,7 +22,7 @@ const Register = () => {
     }
   }, [auth?.isLoggedIn, navigate]);
 
-  const handleLogin = async (e) => {
+  const handleSigUp = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -62,17 +62,17 @@ const Register = () => {
         return;
       }
       setLoading(false);
-      toast.error('Login failed');
+      toast.error(error.response.data.message || 'Registration failed');
       console.error('Error occurred during login:', error);
     }
   };
 
   return (
-    <div className={styles.login}>
+    <div className={styles.register}>
       <div className={styles.top}></div>
       <div className={styles.form}>
         <h2>Register</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSigUp}>
           <input
             type="email"
             name="email"

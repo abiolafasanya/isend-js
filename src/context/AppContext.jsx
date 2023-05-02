@@ -43,7 +43,7 @@ export const AppProvider = ({ children }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('auth');
-    setAuth({ isLoggedIn: false, token: null, user: null });
+    setAuth({ isLoggedIn: false });
   };
 
   const storeOrderId = (order_id) => {

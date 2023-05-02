@@ -14,6 +14,8 @@ import { ArrowBack } from '@mui/icons-material';
 import { formatCurrency } from '../../utils/formatter';
 import { Link } from 'react-router-dom';
 import OrderCompleted from './component/OrderCompleted';
+// import Axios from '../../api/axios';
+
 
 const country = [
   {
@@ -46,8 +48,22 @@ const CreateOrder = () => {
     price: total,
   });
 
-  const handleProceed = () => {
+  const increment = () => {
+    setTotal((total) => total + 100);
+  };
+
+  const decrement = () => {
+    if (total !== 0) {
+      setTotal((total) => total - 100);
+    }
+  };
+
+  const handleProceed = async () => {
     console.log(orderForm);
+
+    // const { data } = await Axios.post('/order/', orderForm);
+
+    // console.log(data);
 
     setCompolete(true);
   };
@@ -79,7 +95,7 @@ const CreateOrder = () => {
                       <label htmlFor="senders_name">Senders Name</label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="text"
                         name="senders_name"
                         id="senders_name"
@@ -93,7 +109,7 @@ const CreateOrder = () => {
                       <label htmlFor="senders_address">Senders Address</label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="text"
                         name="senders_address"
                         id="senders_address"
@@ -138,7 +154,7 @@ const CreateOrder = () => {
                       <label htmlFor="sender_email">Senders Email</label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="email"
                         name="sender_email"
                         id="sender_email"
@@ -156,7 +172,7 @@ const CreateOrder = () => {
                       <label htmlFor="recievers_name">Receiver's Name</label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="text"
                         name="recievers_name"
                         id="recievers_name"
@@ -172,7 +188,7 @@ const CreateOrder = () => {
                       </label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="text"
                         name="recievers_address"
                         id="recievers_address"
@@ -222,10 +238,10 @@ const CreateOrder = () => {
                       </div>
 
                       <label htmlFor="category">Category</label>
-                      <FormControl fullWidth>
+                      <FormControl fullWidth={true}>
                         <Select
                           id="category"
-                          value={10}
+                          value={'electronics'}
                           o
                           onChange={({ target }) =>
                             setOrderForm((order) => ({
@@ -236,6 +252,7 @@ const CreateOrder = () => {
                         >
                           {categories.map((category, id) => (
                             <MenuItem
+                              key={id}
                               value={category}
                               style={{ textTransform: 'capitalize' }}
                             >
@@ -248,7 +265,7 @@ const CreateOrder = () => {
                       <label htmlFor="item_value">Item Value</label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="text"
                         name="item_value"
                         id="item_value"
@@ -264,7 +281,7 @@ const CreateOrder = () => {
                       <label htmlFor="note">Note</label>
                       <TextField
                         className={styles.form_control}
-                        fullWidth
+                        fullWidth={true}
                         type="text"
                         name="note"
                         id="note"
@@ -296,13 +313,9 @@ const CreateOrder = () => {
                 <Box className={styles.total_container}>
                   <h3>Total</h3>
                   <Box className={styles.counter}>
-                    <Button onClick={() => setTotal((total) => total - 100)}>
-                      -
-                    </Button>
+                    <Button variant='inherit' onClick={() => decrement()}>-</Button>
                     <div>{formatCurrency(total)}</div>
-                    <Button onClick={() => setTotal((total) => total + 100)}>
-                      +
-                    </Button>
+                    <Button variant='inherit'  onClick={() => increment()}>+</Button>
                   </Box>
                 </Box>
                 <Button
@@ -310,11 +323,12 @@ const CreateOrder = () => {
                   sx={{
                     color: '#000',
                     marginTop: '1rem',
+                    height: '48px',
                     backgroundColor: '#FFC24D',
                     ':hover': { backgroundColor: '#ffd485' },
                   }}
                   variant="contained"
-                  fullWidth
+                  fullWidth={true}
                   onClick={handleProceed}
                 >
                   Proceed
@@ -324,7 +338,7 @@ const CreateOrder = () => {
           </main>
         </Box>
       ) : (
-        <OrderCompleted />
+        <OrderCompleted detail={orderForm}/>
       )}
     </>
   );
