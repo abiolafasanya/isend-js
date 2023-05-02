@@ -40,6 +40,7 @@ const CreateOrder = () => {
   const [orderForm, setOrderForm] = useState({
     senders_address: '',
     senders_phonenumber: '',
+    senders_email: '',
     category: '',
     receivers_name: '',
     receivers_phonenumber: '',
@@ -149,6 +150,12 @@ const CreateOrder = () => {
                           name="phone_number"
                           id="phone_number"
                           placeholder="+234 810-019-4732"
+                          onChange={({ target }) =>
+                          setOrderForm((order) => ({
+                            ...order,
+                            senders_phonenumber: target.value,
+                          }))
+                        }
                         />
                       </div>
                       <label htmlFor="sender_email">Senders Email</label>
@@ -158,11 +165,11 @@ const CreateOrder = () => {
                         type="email"
                         name="sender_email"
                         id="sender_email"
-                        placeholder=""
+                        placeholder="youremail@domain.com"
                         onChange={({ target }) =>
                           setOrderForm((order) => ({
                             ...order,
-                            senders_phonenumber: target.value,
+                            senders_email: target.value,
                           }))
                         }
                       />

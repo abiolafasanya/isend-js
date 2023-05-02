@@ -19,14 +19,15 @@ const OrderCompleted = ({detail}) => {
             Order Created{' '}
           </Typography>
           <Typography component={'p'}>
-            A tracking Id and Invoice has been sent to [{`${detail.receivers_email} or ${detail.receivers_phonenumber}`} ]{' '}
+            A tracking Id and Invoice has been sent to [
+            {`${detail.senders_email} or ${detail.senders_phonenumber}`} ]{' '}
           </Typography>
           <Button
-            sx={{ 
+            sx={{
               backgroundColor: '#FFC24D',
               color: '#000',
               ':hover': { backgroundColor: '#ffc24d' },
-              width: '200px'
+              width: '200px',
             }}
             onClick={() => navigate('/orders')}
           >
