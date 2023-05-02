@@ -7,35 +7,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import useApp from '../../../hooks/useApp';
 import { useNavigate } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
 
 const Otp = () => {
   const { auth, handleSetAuth } = useApp();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleResendOtp = async (e) =>  {
     e.preventDefault();
-
-    setLoading(true);
     const email = auth?.user.email;
-    const body = {
-      otp: e.target.otp.value,
-      email,
-    };
-
-    if (body.otp === '') {
-      toast.error('Please enter a valid otp code');
-      return;
-    }
 
     try {
-      const { data, status } = await Axios.post(
-        'https://isend-api-v1.herokuapp.com/api/v1/admin/verify',
-        body
-      );
+      const { data, status } = await Axios.post('/admin/verify', {email});
       console.log(data);
       if (data.success || status === 200) {
-        toast.success(data.message || 'Authenticated');
+        toast.success(data.message || 'Otp has been resent check your email');
         setLoading(false);
         handleSetAuth({ isLoggedIn: true, user: { email }, token: data.token });
         setTimeout(() => {
@@ -56,7 +43,52 @@ const Otp = () => {
         return;
       }
       setLoading(false);
-      toast.error('Login failed');
+      toast.error(error.response.data.message || 'failed');
+      console.error('Error occurred during login:', error);
+    }
+  }
+
+  const handleOtp = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const email = auth?.user.email;
+    const body = {
+      otp: e.target.otp.value,
+      email,
+    };
+
+    if (body.otp === '') {
+      toast.error('Please enter a valid otp code');
+      return;
+    }
+
+    try {
+      const { data, status } = await Axios.post('/admin/verify', body);
+      console.log(data);
+      if (data.success || status === 200) {
+        toast.success(data.message || 'Authenticated');
+        setLoading(false);
+        handleSetAuth({ isLoggedIn: true, user: { email }, token: data.token });
+        setTimeout(() => {
+          navigate('/', { replace: true });
+        }, 1000);
+      }
+      if (status === 401 || status === 400 || data.error) {
+        console.log('catch error: ' + data.error);
+        toast.error(data.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        const errorMessage = error.response.data || error.response.data.message;
+        console.log('Error message:', errorMessage);
+        setLoading(false);
+        toast.error(errorMessage?.message);
+        return;
+      }
+      setLoading(false);
+      toast.error(error.response.data.message || 'failed');
       console.error('Error occurred during login:', error);
     }
   };
@@ -65,7 +97,7 @@ const Otp = () => {
       <div className={styles.top}></div>
       <div className={styles.form}>
         <h2>Enter your Otp Code</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleOtp}>
           <input
             type="text"
             name="otp"
@@ -84,6 +116,7 @@ const Otp = () => {
             {loading ? 'Authenticating...' : 'Authenticate'}
           </LoadingButton>
         </form>
+        <Button onClick={handleResendOtp}>Resend Otp</Button>
       </div>
       <div className={styles.bottom}></div>
       <ToastContainer />

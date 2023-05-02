@@ -37,7 +37,7 @@ const Login = () => {
         return;
       }
 
-      const response = await Axios.post('https://isend-api-v1.herokuapp.com/api/v1/admin/login', body);
+      const response = await Axios.post('/admin/login', body);
 
       if (response.status === 200 || response.status === 201) {
         setLoading(false);

@@ -6,11 +6,13 @@ import Axios from '../../api/axios';
 import { useCallback, useEffect, useState } from 'react';
 import Pagination from '../Orders/component/pagination';
 import Modal from '../../components/Modal/Modal';
+import useApp from '../../hooks/useApp';
 
 const Dashboard = () => {
   const [tableData, setTableData] = useState();
   const [pagination, setPagination] = useState();
   const [pageData, setPageData] = useState({ limit: 5, page: 1 });
+  const {auth} = useApp()
   const TableTitle = [
     'date',
     'category',
@@ -49,7 +51,7 @@ const Dashboard = () => {
     return () => {
       console.log('cleanup complete');
     };
-  }, [getOrder, pageData]);
+  }, [getOrder, pageData, auth?.token]);
 
   return (
     <main className={styles.container}>

@@ -1,5 +1,7 @@
 .create-order {
   width: 100%;
+  max-width: 1920px; /* adjust this value according to your design */
+  margin: 0 auto;
   background-color: #f9f9f9;
   height: 100%;
   /* min-height: 100vh; */
@@ -33,11 +35,11 @@
 .sections .area-a {
   margin: 2rem 0;
   height: 100%;
-  width: 45%;
+  width: 55%;
 }
 
 .pickup_details {
-  width: 500px;
+  width: 550px;
   height: 44px;
   height: 100%;
 }
@@ -45,10 +47,6 @@
 .form_control {
   display: block;
   width: 100%;
-  /* display: block;
-   outline: none;
-   border: 1px solid #EBE9E5;
-   margin-bottom: 1rem; */
 }
 
 label {
@@ -78,7 +76,7 @@ label {
 }
 .sections .side-b {
   height: 100%;
-  width: 45%;
+  width: 40%;
   display: flex;
 }
 
