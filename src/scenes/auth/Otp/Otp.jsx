@@ -24,10 +24,6 @@ const Otp = () => {
       if (data.success || status === 200) {
         toast.success(data.message || 'Otp has been resent check your email');
         setLoading(false);
-        handleSetAuth({ isLoggedIn: true, user: { email }, token: data.token });
-        setTimeout(() => {
-          navigate('/', { replace: true });
-        }, 1000);
       }
       if (status === 401 || status === 400 || data.error) {
         console.log('catch error: ' + data.error);
