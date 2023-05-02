@@ -19,7 +19,7 @@ const Otp = () => {
     const email = auth?.user.email;
 
     try {
-      const { data, status } = await Axios.post('/admin/verify', {email});
+      const { data, status } = await Axios.post('/admin/resend-otp', {email});
       console.log(data);
       if (data.success || status === 200) {
         toast.success(data.message || 'Otp has been resent check your email');
