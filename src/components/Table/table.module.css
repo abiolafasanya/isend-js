@@ -145,6 +145,7 @@ select {
 }
 .table tbody tr td {
   padding: 1rem 0.3rem;
+  min-width: 200px;
   text-transform: capitalize;
   text-overflow: clip;
   white-space: nowrap;
