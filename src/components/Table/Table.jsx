@@ -125,7 +125,7 @@ const Table = ({ tableHeader, tableData }) => {
     <div className={styles.table}>
       <CustomModal title={customModalTitle} message={message} />
 
-      <div className={styles.table_searhbox}>
+      <div className={styles.table_searchbox}>
         <input
           type="text"
           name="search"

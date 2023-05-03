@@ -96,15 +96,22 @@ select {
 .table  .table_search::placeholder {
   font-weight: 500;
 }
-.table .table_searhbox{
+.table .table_searchbox{
   position: relative;
 }
 
-.table .table_searhbox img {
+.table .table_searchbox img {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
   top: 12px;
   left: 10px;
   width: 16px;
+}
+.table .table_searchbox button {
+  margin-left: 20px;
+  white-space: nowrap;
+
 }
 @media (max-width: 720px) and (min-width: 294px) {
   .table {
@@ -195,12 +202,12 @@ select {
   width: 200px !important;
 }
 
-.table .table_searhbox {
+.table .table_searchbox {
   display: flex;
   justify-content: space-between;
 }
 
-.table .table_searhbox button {
+.table .table_searchbox button {
   background-color: #FFCD4D;
   color: #000;
 }
