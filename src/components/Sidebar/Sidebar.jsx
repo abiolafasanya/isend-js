@@ -25,9 +25,6 @@ const Sidebar = () => {
     <div className={closeSidebar ? styles.container_close : styles.container }>
       <aside
       className={closeSidebar ? styles.sidebar : styles.close}
-      // className={`${styles.sidebar} ${
-      //   closeSidebar ? styles.close: ''
-      // }`}
     >
       <section className={styles.sidebar_section1}>
         <img src={Logo} alt="logo" className={styles.logo} />
