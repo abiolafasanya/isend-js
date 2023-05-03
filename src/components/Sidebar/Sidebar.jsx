@@ -43,6 +43,7 @@ const Sidebar = () => {
                   ? styles.active
                   : styles.nothing
               }
+              onClick={() => toggleSidebar()}
             >
               <img src={link.icon} alt="icon" />
               <span className={styles.link_name}>{link.name}</span>

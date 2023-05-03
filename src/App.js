@@ -20,9 +20,8 @@ function App() {
           <Route path="/riders" element={<Construction />} />
           <Route path="/customers" element={<Construction />} />
           <Route path="/transactions" element={<Construction />} />
-          <Route path="*" element={<PageNotFound />} />
         </Route>
-          <Route path="/create-order" element={<CreateOrder />} />
+        <Route path="/create-order" element={<CreateOrder />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/authenticate" element={<Otp />} />
