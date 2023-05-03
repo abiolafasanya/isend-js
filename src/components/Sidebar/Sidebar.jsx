@@ -7,7 +7,7 @@ import Deliveries from '../../assets/icons/deliveries.svg';
 import Collapse from '../../assets/icons/Collapse.svg';
 import styles from './Sidebar.module.css';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import useApp from '../../hooks/useApp';
 
 const links = [
   { name: 'Dashboard', href: '/', icon: Dashboard },
@@ -17,19 +17,21 @@ const links = [
   { name: 'Orders', href: '/orders', icon: Deliveries },
 ];
 
+
 const Sidebar = () => {
-  const [close, setClose] = useState(false)
+  const { closeSidebar, toggleSidebar } = useApp();
+
   return (
-    <aside
-      className={`${styles.sidebar} ${close ? styles['close-sidebar'] : ''}`}
+    <div className={closeSidebar ? styles.container_close : styles.container }>
+      <aside
+      className={closeSidebar ? styles.sidebar : styles.close}
+      // className={`${styles.sidebar} ${
+      //   closeSidebar ? styles.close: ''
+      // }`}
     >
       <section className={styles.sidebar_section1}>
-        {!close && <img src={Logo} alt="logo" className={styles.logo} />}
-        <img
-          src={Collapse}
-          alt="logo"
-          onClick={() => setClose((close) => !close)}
-        />
+        <img src={Logo} alt="logo" className={styles.logo} />
+        <img src={Collapse} alt="logo" onClick={() => toggleSidebar()} />
       </section>
       <section className={styles.sidebar_section2}>
         <menu>
@@ -46,12 +48,13 @@ const Sidebar = () => {
               }
             >
               <img src={link.icon} alt="icon" />
-              {!close && <span className={styles.link_name}>{link.name}</span>}
+              <span className={styles.link_name}>{link.name}</span>
             </NavLink>
           ))}
         </menu>
       </section>
     </aside>
+    </div>
   );
 };
 

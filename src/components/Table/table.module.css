@@ -1,6 +1,8 @@
 @font-face {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  src: local("Plus Jakarta Sans"), url("../../assets/fonts/Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf") format("truetype");
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  src: local('Plus Jakarta Sans'),
+    url('../../assets/fonts/Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf')
+      format('truetype');
 }
 /* Box sizing rules */
 *,
@@ -24,8 +26,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role=list],
-ol[role=list] {
+ul[role='list'],
+ol[role='list'] {
   list-style: none;
 }
 
@@ -34,7 +36,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   overflow-x: hidden;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* A elements that don't have a class get default styles */
@@ -72,7 +74,6 @@ select {
   }
 }
 .table {
-  width: 100%;
   height: 100%;
   background-color: #ffffff;
   padding: 1rem;
@@ -81,7 +82,7 @@ select {
   margin-top: 1rem;
   border: 1px solid #e4e4e4;
   border-radius: 4px;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: auto;
 }
 .table .table_search {
@@ -93,10 +94,10 @@ select {
   padding: 2px 30px;
   font-size: 14px;
 }
-.table  .table_search::placeholder {
+.table .table_search::placeholder {
   font-weight: 500;
 }
-.table .table_searchbox{
+.table .table_searchbox {
   position: relative;
 }
 
@@ -111,15 +112,17 @@ select {
 .table .table_searchbox button {
   margin-left: 20px;
   white-space: nowrap;
-
 }
 @media (max-width: 720px) and (min-width: 294px) {
   .table {
-    width: 100%;
+    width: 97%;
     overflow-x: auto;
   }
   .table_search {
     width: 100%;
+  }
+  .table .table_search {
+    width: 300px;
   }
 }
 .table table {
@@ -145,7 +148,7 @@ select {
 }
 .table tbody tr td {
   padding: 1rem 0.3rem;
-  min-width: 200px;
+  min-width: 150px;
   text-transform: capitalize;
   text-overflow: clip;
   white-space: nowrap;
@@ -171,15 +174,15 @@ select {
   border-radius: 3px;
 }
 .table tbody .btn-pending {
-  background-color: #FFCD4D;
-  color: #000;;
+  background-color: #ffcd4d;
+  color: #000;
 }
 .table tbody .btn-paid {
-  background-color: #4EA977;
+  background-color: #4ea977;
   color: #ffffff;
 }
 .table tbody .btn-failed {
-  background-color: #DF3539;
+  background-color: #df3539;
   color: #ffffff;
 }
 .table .header {
@@ -187,12 +190,12 @@ select {
   padding: 1.5rem 0.5rem;
 }
 .table tbody td select {
-  padding: .3rem;
+  padding: 0.3rem;
   width: 100px;
   border-radius: 5px;
-  background-color: #fff; /* sets background color to white */
-  color: #333; /* sets text color to dark gray */
-  margin-right: 10px; /* adds margin to the right of the select element */
+  background-color: #fff; 
+  color: #333; 
+  margin-right: 10px;
   border: 1px solid rgba(84, 95, 125, 0.15);
   outline: none;
 }
@@ -209,7 +212,7 @@ select {
 }
 
 .table .table_searchbox button {
-  background-color: #FFCD4D;
+  background-color: #ffcd4d;
   color: #000;
 }
 

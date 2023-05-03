@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import useApp from '../../hooks/useApp';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const menus = [
   { name: 'Notifications', icon: Bell },
@@ -21,23 +22,27 @@ const menus = [
 
 
 const Navbar = ({ title }) => {
-  const { handleLogout } = useApp();
+  const { handleLogout, toggleSidebar } = useApp();
   const settings = [
     { name: 'Profile', action: () => {} },
     { name: 'Settings', action: () => {} },
     { name: 'Logout', action: handleLogout },
   ];
+  
   const [openSettings, setOpenSettings] = useState(false);
+
   const handleCloseUserMenu = () => {
     setOpenSettings((open) => !open);
   };
-  const handleOpenUserMenu = (event) => {
+
+  const handleOpenUserMenu = () => {
     setOpenSettings((open) => !open);
   };
 
   return (
     <div className={styles.navbar}>
-      <div>
+      <div className={styles.title}>
+        <MenuIcon className={styles.hamburger} onClick={toggleSidebar} />
         <h1>{title}</h1>
       </div>
       <ul className={styles.navbar_menu}>

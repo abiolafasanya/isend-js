@@ -4,7 +4,7 @@ const Axios = axios.create({
   baseURL: "https://isend-v1.herokuapp.com/api/v1/",
 });
 
-const token = JSON.parse(localStorage.getItem('auth'))?.token;
+const token = JSON.parse(sessionStorage.getItem('auth'))?.token;
 
 Axios.defaults.headers.common[
   'Authorization'

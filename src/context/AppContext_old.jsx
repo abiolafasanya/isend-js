@@ -16,7 +16,6 @@ export const AppProvider = ({ children }) => {
   const [message, setMessage] = useState('');
   const [events, setEvent] = useState(false);
   const [error, setError] = useState(false);
-  const [closeSidebar, setCloseSidebar] = useState(false);
 
   const [auth, setAuth] = useState({
     isLoggedIn: false,
@@ -24,31 +23,26 @@ export const AppProvider = ({ children }) => {
     user: null,
   });
 
-
   useEffect(() => {
     setAuth((prev) => {
-      const auth = sessionStorage.getItem('auth');
+      const auth = localStorage.getItem('auth');
       if (auth) return JSON.parse(auth);
       return prev;
     });
   }, []);
 
-  const toggleSidebar = () => {
-    setCloseSidebar(close => !close)
-  }
-
   const handleSetAuth = (auth) => {
-    const isAuth = sessionStorage.getItem('auth');
+    const isAuth = localStorage.getItem('auth');
     if (isAuth) {
-      sessionStorage.removeItem('auth');
+      localStorage.removeItem('auth');
     }
-    sessionStorage.setItem('auth', JSON.stringify(auth));
+    localStorage.setItem('auth', JSON.stringify(auth));
     setAuth(auth);
     return auth;
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('auth');
+    localStorage.removeItem('auth');
     setAuth({ isLoggedIn: false });
   };
 
@@ -99,8 +93,6 @@ export const AppProvider = ({ children }) => {
         auth,
         handleSetAuth,
         handleLogout,
-        closeSidebar,
-        toggleSidebar,
       }}
     >
       {children}
