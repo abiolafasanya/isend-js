@@ -204,3 +204,8 @@ select {
   background-color: #FFCD4D;
   color: #000;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -88,6 +88,9 @@ select {
   gap: 3rem;
   align-items: center;
 }
+.hamburger {
+  display: none;
+}
 .sidebar_section2 menu {
   display: flex;
   flex-direction: column;
@@ -109,4 +112,44 @@ select {
 
 .close-sidebar {
   width: 150px;
+}
+
+.link_name {
+  display: inline;
+}
+
+
+
+@media (max-width: 720px) and (min-width: 294px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #ffffff;
+  }
+  .logo {
+    /* display: none; */
+    width: 0;
+  }
+  .link_name {
+    display: none;
+  }
+  .sidebar_section2 menu a {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.8rem 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .sidebar_section1 {
+   width: 0;
+  }
+  img {
+    width: 24px;
+  }
+  .hamburger {
+    display: block;
+  }
 }

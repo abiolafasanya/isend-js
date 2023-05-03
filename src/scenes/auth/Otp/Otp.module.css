@@ -49,6 +49,15 @@
   .form_input:active, .form_input:focus {
       background: #fff;   
   }
+
+  @media (max-width: 720px) and (min-width: 294px) {
+    .form form {
+      width: 90%;
+    }
+    .form_input {
+      height: 44px;
+    }
+  }
   
   form button {
     background-color: #1d1f22;

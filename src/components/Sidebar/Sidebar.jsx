@@ -20,23 +20,33 @@ const links = [
 const Sidebar = () => {
   const [close, setClose] = useState(false)
   return (
-    <aside className={`${styles.sidebar} ${close ? styles['close-sidebar'] : ''}`}>
+    <aside
+      className={`${styles.sidebar} ${close ? styles['close-sidebar'] : ''}`}
+    >
       <section className={styles.sidebar_section1}>
-        {!close && <img src={Logo} alt="logo" />}
-        <img src={Collapse} alt="logo" onClick={() => setClose(close => ! close)}/>
+        {!close && <img src={Logo} alt="logo" className={styles.logo} />}
+        <img
+          src={Collapse}
+          alt="logo"
+          onClick={() => setClose((close) => !close)}
+        />
       </section>
       <section className={styles.sidebar_section2}>
         <menu>
           {links.map((link, index) => (
-            <NavLink key={index} to={link.href} className={({ isActive, isPending }) =>
-            isPending
-              ? styles.pending
-              : isActive
-              ? styles.active
-              : styles.nothing
-          }>
+            <NavLink
+              key={index}
+              to={link.href}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? styles.pending
+                  : isActive
+                  ? styles.active
+                  : styles.nothing
+              }
+            >
               <img src={link.icon} alt="icon" />
-              {!close && <span>{link.name}</span>}
+              {!close && <span className={styles.link_name}>{link.name}</span>}
             </NavLink>
           ))}
         </menu>
