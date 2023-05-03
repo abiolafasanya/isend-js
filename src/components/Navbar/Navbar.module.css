@@ -95,6 +95,7 @@ select {
 .navbar_menu {
   display: flex;
   gap: 2.5rem;
+  align-items: center;
 }
 .navbar_menu img {
   background-color: #f8f8f8;
@@ -107,18 +108,33 @@ select {
 @media (max-width: 720px) and (min-width: 294px) {
   .navbar {
     width: 100%;
-    padding: 1rem;
+    padding: .5rem;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
   }
   .title .hamburger {
     display: inline-block;
+  }
+
+  .navbar h1 {
+    font-weight: 700;
+    font-size: 22px;
   }
 
   .title {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+  .navbar_menu {
+    align-items: center;
+    gap: 1rem;
+    padding: 0 10px;
+  }
+  .navbar_menu img {
+    background-color: #f8f8f8;
+    padding: 0.4rem;
+    border-radius: 5px;
   }
 }
 
