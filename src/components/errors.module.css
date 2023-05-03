@@ -19,3 +19,16 @@
     width: 390px;
     display: block;
 }
+
+.image img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 720px) and (min-width: 294px) {
+    .construction .image, .notfound .image {
+        width: 250px;
+        display: block;
+    }
+  }
