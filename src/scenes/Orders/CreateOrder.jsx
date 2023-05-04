@@ -14,7 +14,7 @@ import { ArrowBack } from '@mui/icons-material';
 import { formatCurrency } from '../../utils/formatter';
 import { Link } from 'react-router-dom';
 import OrderCompleted from './component/OrderCompleted';
-// import Axios from '../../api/axios';
+import Axios from '../../api/axios';
 
 const country = [
   {
@@ -33,23 +33,35 @@ const country = [
 
 const categories = ['electronics', 'food', 'documents'];
 
+const defaultFormValue = {
+  senders_address: '',
+  receivers_address: '',
+  senders_phonenumber: '',
+  senders_email: '',
+  category: '',
+  receivers_name: '',
+  receivers_phonenumber: '',
+  item_value: 0,
+  delivery_note: '',
+  hub_location: {
+    address: '',
+    coordinates: [],
+  },
+  delivery_details: {
+    coordinates: [],
+    address: '',
+  },
+};
+
 const CreateOrder = () => {
   const [total, setTotal] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  // const [addressData, setAddressData] = useState(null);
-  const [addressData] = useState(null);
-  const [compolete, setCompolete] = useState(false);
-  const [orderForm, setOrderForm] = useState({
-    senders_address: '',
-    senders_phonenumber: '',
-    senders_email: '',
-    category: '',
-    receivers_name: '',
-    receivers_phonenumber: '',
-    item_value: 0,
-    delivery_note: '',
-    price: total,
-  });
+  const [sendersAddr, setSendersAddr] = useState('');
+  const [receiversAddr, setRecieversAddr] = useState('');
+  // const [receiversAddr, setRecieiversAddr] = useState(null);
+  // const [addressData] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
+  const [complete, setComplete] = useState(false);
+  const [orderForm, setOrderForm] = useState(defaultFormValue);
 
   const increment = () => {
     setTotal((total) => total + 100);
@@ -66,45 +78,103 @@ const CreateOrder = () => {
     orderForm.item_value = total;
     console.log('new data', orderForm);
 
-    // const { data } = await Axios.post('/order/', orderForm);
+    const { data, status } = await Axios.post('/dispatch/', orderForm);
 
-    // console.log(data);
+    if (status === 200 || status === 201) {
+      console.log(data);
+      setComplete(true);
+    }
+    if(data.error) {
+      console.log(data.error);
+    }
 
-    setCompolete(true);
+    alert('error: data need to be handled');
+  };
+  // const url = 'https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=vgc'
+
+  const handleFetchSenderAddress = (event) => {
+    const searchTerm = event.target.value;
+    if (searchTerm.length > 0) {
+      console.log(searchTerm);
+      setTimeout(() => {
+        fetch(
+          `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setSuggestions(data.data.results);
+            console.log(data.data.results);
+          })
+          .catch((error) => console.error(error));
+      }, 1000);
+    }
+    setSendersAddr(event.target.value);
   };
 
-  const handleFetchAddress = (event) => {
-    // event.preventDefault();
-    // const location = 'us';
+  const handleFetchRecieverAddress = (event) => {
     const searchTerm = event.target.value;
-    setSearchTerm(event.target.value);
-    console.log(searchTerm);
+    if (searchTerm.length > 0) {
+      console.log(searchTerm);
+      setTimeout(() => {
+        fetch(
+          `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setSuggestions(data.data.results);
+            console.log(data.data.results);
+          })
+          .catch((error) => console.error(error));
+      }, 1000);
+    }
+    setRecieversAddr(event.target.value);
+  };
 
-    // const apiKey = '9765601f337e61ed0cea77114';
-    // let endpoint = `https://api.wikiocity.com/r/search?autocomplete=address&search=${searchTerm}&country=${location}&key=${apiKey}`;
-    // fetch(endpoint)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // Move setOrderForm() inside this block
-    //     setAddressData(data);
-    //     console.log(data);
-    //     setOrderForm((order) => ({
-    //       ...order,
-    //       senders_address: data,
-    //     }));
-    //   })
-    //   .catch((error) => console.error(error));
+  const onSuggestionHandler = async (text) => {
+    setSendersAddr(text);
+    const geoData = await handleFetchLongLat(text);
+    console.log(geoData.data.result);
+    let result = geoData.data.result;
+    setOrderForm((order) => ({
+      ...order,
+      senders_address: text,
+      hub_location: {
+        address: text,
+        coordinates: [result?.lat, result?.lng],
+      },
+      // senders_address: geoData.data.result,
+    }));
+    setSuggestions([]);
+  };
 
-    fetch(
-      `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
+  const onSuggestionReceiverHandler = async (text) => {
+    setRecieversAddr(text);
+    const geoData = await handleFetchLongLat(text);
+    console.log(geoData.data.result);
+    let result = geoData.data.result;
+    setOrderForm((order) => ({
+      ...order,
+      receivers_address: text,
+      delivery_details: {
+        address: text,
+        coordinates: [result?.lat, result?.lng],
+      },
+    }));
+    setSuggestions([]);
+  };
+
+  const handleFetchLongLat = (address) => {
+    return fetch(
+      `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`
     )
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => data)
+      .catch((error) => console.error(error));
   };
 
   return (
     <>
-      {!compolete ? (
+      {!complete ? (
         <Box className={styles['create-order']}>
           <header className={styles.header}>
             <h2>Order Form</h2>
@@ -145,29 +215,30 @@ const CreateOrder = () => {
                         className={styles.form_control}
                         fullWidth
                         type="text"
-                        value={searchTerm}
+                        value={sendersAddr}
                         name="senders_address"
                         id="senders_address"
                         placeholder="2715 Ash Dr. San Jose, South Dakota 83475"
-                        onChange={handleFetchAddress}
+                        onChange={handleFetchSenderAddress}
+                        list="addrlist"
                       />
-                      {/* <datalist id="tickmarks">
-                        <option value="0"></option>
-                        <option value="10"></option>
-                        <option value="20"></option>
-                        <option value="30"></option>
-                        <option value="50"></option>
-                        <option value="80"></option>
-                        <option value="100"></option>
-                      </datalist> */}
-                      {addressData && (
-                        <div>
-                          <h2>Address Information:</h2>
-                          <p>{addressData?.result?.formatted_address}</p>
-                          <p>{addressData?.result?.geometry.location.lat}</p>
-                          <p>{addressData?.result?.geometry.location.lng}</p>
+                      {suggestions && suggestions.length > 0 && (
+                        <div id="addrlist" className={styles.addressList}>
+                          {suggestions?.map((address, i) => (
+                            <div
+                              className={styles.list}
+                              onClick={() =>
+                                onSuggestionHandler(address.description)
+                              }
+                              key={Date.now() * i}
+                              value={address?.description}
+                            >
+                              {address?.description}
+                            </div>
+                          ))}
                         </div>
                       )}
+
                       <label htmlFor="phone_number">Senders Phone Number</label>
                       <div className={styles.form_group}>
                         <TextField
@@ -242,16 +313,28 @@ const CreateOrder = () => {
                         className={styles.form_control}
                         fullWidth
                         type="text"
+                        value={receiversAddr}
                         name="recievers_address"
                         id="recievers_address"
                         placeholder="2715 Ash Dr. San Jose, South Dakota 83475"
-                        onChange={({ target }) =>
-                          setOrderForm((order) => ({
-                            ...order,
-                            recievers_address: target.value,
-                          }))
-                        }
+                        onChange={handleFetchRecieverAddress}
                       />
+                      {suggestions && suggestions.length > 0 && (
+                        <div id="addrlist" className={styles.addressList}>
+                          {suggestions?.map((address, i) => (
+                            <div
+                              className={styles.list}
+                              onClick={() =>
+                                onSuggestionReceiverHandler(address.description)
+                              }
+                              key={Date.now() * i}
+                              value={address?.description}
+                            >
+                              {address?.description}
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
                       <label
                         htmlFor="recievers_phone_number"
@@ -343,7 +426,7 @@ const CreateOrder = () => {
                         onChange={({ target }) =>
                           setOrderForm((order) => ({
                             ...order,
-                            note: target.value,
+                            delivery_note: target.value,
                           }))
                         }
                       />

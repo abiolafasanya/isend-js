@@ -116,6 +116,25 @@ label {
   background-color: #ffc24d !important;
 }
 
+.addressList {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+}
+.addressList .list {
+  padding: .5rem;
+}
+
+.addressList .list:hover {
+  background-color: rgba(0, 0, 0, 0.11);
+  transition: ease-in-out;
+  cursor: pointer;
+}
+
 @media (max-width: 720px) and (min-width: 294px) {
   .create-order {
     width: 100%;
