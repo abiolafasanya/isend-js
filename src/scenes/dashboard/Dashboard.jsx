@@ -46,7 +46,7 @@ const Dashboard = () => {
       setTableData(sortByDesc);
       setPagination(data.pagination);
     }
-    getTableData();
+    getTableData().then(data => data);
 
     return () => {
       console.log('cleanup complete');
