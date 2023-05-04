@@ -27,7 +27,7 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     setAuth((prev) => {
-      const auth = sessionStorage.getItem('auth');
+      const auth = localStorage.getItem('auth');
       if (auth) return JSON.parse(auth);
       return prev;
     });
@@ -38,17 +38,17 @@ export const AppProvider = ({ children }) => {
   }
 
   const handleSetAuth = (auth) => {
-    const isAuth = sessionStorage.getItem('auth');
+    const isAuth = localStorage.getItem('auth');
     if (isAuth) {
-      sessionStorage.removeItem('auth');
+      localStorage.removeItem('auth');
     }
-    sessionStorage.setItem('auth', JSON.stringify(auth));
+    localStorage.setItem('auth', JSON.stringify(auth));
     setAuth(auth);
     return auth;
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('auth');
+    localStorage.removeItem('auth');
     setAuth({ isLoggedIn: false });
   };
 
