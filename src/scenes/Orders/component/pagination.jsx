@@ -17,7 +17,7 @@ const Pagination = ({ pagination, setPageData }) => {
   };
 
   const nextPage = () => {
-    if (pagination?.currentPage < pagination.totalPages) {
+    if (pagination?.currentPage < pagination?.totalPages) {
       pagination.currentPage++;
       setPageData((data) => {
         const currentPage = { limit: data.limit, page: pagination.currentPage };

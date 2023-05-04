@@ -74,25 +74,31 @@ const CreateOrder = () => {
 
   const handleFetchAddress = (event) => {
     // event.preventDefault();
-    const location = 'us';
+    // const location = 'us';
     const searchTerm = event.target.value;
     setSearchTerm(event.target.value);
     console.log(searchTerm);
 
-    const apiKey = '9765601f337e61ed0cea77114';
-    let endpoint = `https://api.wikiocity.com/r/search?autocomplete=address&search=${searchTerm}&country=${location}&key=${apiKey}`;
-    fetch(endpoint)
-      .then((response) => response.json())
-      .then((data) => {
-        // Move setOrderForm() inside this block
-        setAddressData(data);
-        console.log(data);
-        setOrderForm((order) => ({
-          ...order,
-          senders_address: data,
-        }));
-      })
-      .catch((error) => console.error(error));
+    // const apiKey = '9765601f337e61ed0cea77114';
+    // let endpoint = `https://api.wikiocity.com/r/search?autocomplete=address&search=${searchTerm}&country=${location}&key=${apiKey}`;
+    // fetch(endpoint)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // Move setOrderForm() inside this block
+    //     setAddressData(data);
+    //     console.log(data);
+    //     setOrderForm((order) => ({
+    //       ...order,
+    //       senders_address: data,
+    //     }));
+    //   })
+    //   .catch((error) => console.error(error));
+
+    fetch(
+      `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   return (
@@ -144,6 +150,15 @@ const CreateOrder = () => {
                         placeholder="2715 Ash Dr. San Jose, South Dakota 83475"
                         onChange={handleFetchAddress}
                       />
+                      {/* <datalist id="tickmarks">
+                        <option value="0"></option>
+                        <option value="10"></option>
+                        <option value="20"></option>
+                        <option value="30"></option>
+                        <option value="50"></option>
+                        <option value="80"></option>
+                        <option value="100"></option>
+                      </datalist> */}
                       {addressData && (
                         <div>
                           <h2>Address Information:</h2>
