@@ -84,7 +84,7 @@ const CreateOrder = () => {
       console.log(data);
       setComplete(true);
     }
-    if(data.error) {
+    if (data.error) {
       console.log(data.error);
     }
 
@@ -96,10 +96,15 @@ const CreateOrder = () => {
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
       console.log(searchTerm);
+      let Endpoint;
+      if (process.env.NODE_ENV !== 'production') {
+        Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`;
+      } else {
+        Endpoint = `${process.env.REACT_APP_AUTOCOMPLETE_ADDRESS}=${searchTerm}`;
+      }
+
       setTimeout(() => {
-        fetch(
-          `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
-        )
+        fetch(Endpoint)
           .then((res) => res.json())
           .then((data) => {
             setSuggestions(data.data.results);
@@ -164,9 +169,13 @@ const CreateOrder = () => {
   };
 
   const handleFetchLongLat = (address) => {
-    return fetch(
-      `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`
-    )
+    let Endpoint;
+    if (process.env.NODE_ENV !== 'production') {
+      Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`;
+    } else {
+      Endpoint = `${process.env.REACT_APP_GOOGLE_GEOCODING}=${address}`;
+    }
+    return fetch(Endpoint)
       .then((res) => res.json())
       .then((data) => data)
       .catch((error) => console.error(error));
