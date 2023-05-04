@@ -36,7 +36,8 @@ const categories = ['electronics', 'food', 'documents'];
 const CreateOrder = () => {
   const [total, setTotal] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  const [addressData, setAddressData] = useState(null);
+  // const [addressData, setAddressData] = useState(null);
+  const [addressData] = useState(null);
   const [compolete, setCompolete] = useState(false);
   const [orderForm, setOrderForm] = useState({
     senders_address: '',
