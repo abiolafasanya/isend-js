@@ -54,11 +54,13 @@
 .modal .form_group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
 .modal .form_group select {
   height: 58px;
+  width: 100%;
   border-radius: 5px;
   background-color: #ececec6b; /* sets background color to white */
   color: #333; /* sets text color to dark gray */
@@ -74,6 +76,7 @@
 
 .modal .form_group input {
   height: 58px;
+  width: 100%;
   border-radius: 5px;
   background-color: #ececec6b; /* sets background color to white */
   color: #333; /* sets text color to dark gray */
@@ -150,4 +153,28 @@
 .modal main button:last-of-type {
   background-color: #0077ff;
   color: #fff;
+}
+
+
+@media (max-width: 720px) and (min-width: 294px) {
+  .modal .card {
+    width: 80%;
+    /* min-height: 334px; */
+    padding: 2rem 1rem;
+  }
+  .form_btn {
+    /* align-items: start; */
+    display: flex;
+    width: 100%;
+  }
+
+  .modal main button {
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .modal .form_group input {
+    width: 100%;
+    margin: 0;
+  }
 }
