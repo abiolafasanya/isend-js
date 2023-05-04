@@ -25,7 +25,7 @@ const Dashboard = () => {
   ];
 
   const getOrder = useCallback(async () => {
-    const Endpoint = `https://isend-v1.herokuapp.com/api/v1/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
+    const Endpoint = `/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
     const { data } = await Axios.get(Endpoint);
     return data;
   }, [pageData]);
