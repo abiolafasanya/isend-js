@@ -46,8 +46,7 @@ const Pagination = ({ pagination, setPageData }) => {
       <div className={styles.pagination}>
         <div className={styles.limit}>
           <label htmlFor="limit">Limit</label>
-          <select name="limit" id="limit" defaultValue={5} onChange={handleLimitChange}>
-            <option value="5">5</option>
+          <select name="limit" id="limit" defaultValue={10} onChange={handleLimitChange}>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>

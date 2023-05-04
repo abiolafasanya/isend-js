@@ -20,7 +20,7 @@ const TableTitle = [
 
 const Orders = () => {
   const [pagination, setPagination] = useState();
-  const [pageData, setPageData] = useState({ limit: 5, page: 1 });
+  const [pageData, setPageData] = useState({ limit: 10, page: 1 });
   const [tableData, setTableData] = useState();
   const {events} = useApp()
 

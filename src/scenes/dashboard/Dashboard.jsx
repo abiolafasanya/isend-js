@@ -11,7 +11,7 @@ import useApp from '../../hooks/useApp';
 const Dashboard = () => {
   const [tableData, setTableData] = useState();
   const [pagination, setPagination] = useState();
-  const [pageData, setPageData] = useState({ limit: 5, page: 1 });
+  const [pageData, setPageData] = useState({ limit: 10, page: 1 });
   const {auth} = useApp()
   const TableTitle = [
     'date',
