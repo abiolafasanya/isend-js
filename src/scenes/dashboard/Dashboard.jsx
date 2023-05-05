@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [tableData, setTableData] = useState();
   const [pagination, setPagination] = useState();
   const [pageData, setPageData] = useState({ limit: 10, page: 1 });
-  const { events } = useApp();
+  const { events, auth } = useApp();
   const TableTitle = [
     'date',
     'category',
@@ -45,12 +45,12 @@ const Dashboard = () => {
       }
     }
 
-    getTableData();
+    getTableData().then(data => data);
 
     return () => {
       console.log('cleanup complete');
     };
-  }, [pageData, events]);
+  }, [pageData, events, auth]);
 
   return (
     <main className={styles.container}>

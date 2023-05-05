@@ -61,6 +61,7 @@ const Navbar = ({ title }) => {
             <Menu
               sx={{ mt: '65px' }}
               id="menu-appbar"
+              anchorEl={openSettings ? document.body : null}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -69,6 +70,7 @@ const Navbar = ({ title }) => {
               open={openSettings}
               onClose={handleCloseUserMenu}
             >
+            
               {settings.map((setting, i) => (
                 <MenuItem key={i} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" onClick={() => setting.action()}>{setting.name}</Typography>

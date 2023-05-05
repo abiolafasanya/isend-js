@@ -13,7 +13,7 @@ import {
   getAllRiders,
   assignRider,
 } from './requests';
-import { Button } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -22,6 +22,7 @@ const Table = ({ tableHeader, tableData }) => {
   const [riders, setRiders] = useState([]);
   const [orders, setOrders] = useState(() => tableData);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const progressData = async () => {
@@ -31,6 +32,7 @@ const Table = ({ tableHeader, tableData }) => {
       setProgress(data);
       setRiders(await getAllRiders());
       setOrders(tableData);
+      setLoading(false);
     };
     progressData();
   }, [tableData]);
@@ -163,65 +165,98 @@ const Table = ({ tableHeader, tableData }) => {
           </tr>
         </thead>
         <tbody>
-          {orders?.map((data, id) => (
-            <tr className={styles.tableData} key={id}>
-              <td className={styles.ellipsis}>{formatDate(data.updatedAt)}</td>
-              <td>{data.category}</td>
-              <td className={styles.ellipsis}>
-                {data.order_id ? data.order_id : 'Not Available'}
-              </td>
-              <td>{formatCurrency(data.total)}</td>
-              <td className={styles[`${stateOfStatus(id)}`]}>
-                {data?.order_status}
-              </td>
-              <td className={''}>
-                <button
-                  className={styles[`${paymentStatus(id)}`]}
-                  onClick={() => handlePaymentModal(data.order_id)}
-                >
-                  {data.payment_status}
-                </button>
-              </td>
-              <td className={styles.status}>
-                <select onChange={handleAssignRider}>
-                  <option disabled selected>
-                    {data.assignee.name ? data?.assignee.name : 'Unassigned'}
-                  </option>
-                  {riders.map((rider, id) => (
-                    <option
-                      key={rider.id + `-${id}`}
-                      value={JSON.stringify({
-                        ...rider,
-                        order_id: data.order_id,
-                      })}
+          {loading
+            ? 'loading...'
+            : orders?.map((data, id) => (
+                <tr className={styles.tableData} key={id}>
+                  <td className={styles.ellipsis}>
+                    {formatDate(data.updatedAt)}
+                  </td>
+                  <td>{data.category}</td>
+                  <td className={styles.ellipsis}>
+                    {data.order_id ? data.order_id : 'Not Available'}
+                  </td>
+                  <td>{formatCurrency(data.total)}</td>
+                  <td className={styles[`${stateOfStatus(id)}`]}>
+                    {data?.order_status}
+                  </td>
+                  <td className={''}>
+                    <button
+                      className={styles[`${paymentStatus(id)}`]}
+                      onClick={() => handlePaymentModal(data.order_id)}
                     >
-                      {rider.name}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <select id="progress_status" onChange={handleProgress}>
-                  <option disabled selected>
-                    {data.order_progress.title
-                      ? data.order_progress.title
-                      : data.order_progress}
-                  </option>
-                  {progress.map((progress, id) => (
-                    <option
-                      key={progress.id + `-${id}`}
-                      value={JSON.stringify({
-                        ...progress,
-                        order_id: data.order_id,
-                      })}
+                      {data.payment_status}
+                    </button>
+                  </td>
+                  <td className={styles.status}>
+                    <select
+                      onChange={handleAssignRider}
+                      defaultValue={
+                        data.assignee.name ? data?.assignee.name : 'Unassigned'
+                      }
                     >
-                      {progress.title}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-          ))}
+                      <option
+                        disabled
+                        value={
+                          data.assignee.name
+                            ? data?.assignee.name
+                            : 'Unassigned'
+                        }
+                      >
+                        {data.assignee.name
+                          ? data?.assignee.name
+                          : 'Unassigned'}
+                      </option>
+                      {riders.map((rider, id) => (
+                        <option
+                          key={rider.id + `-${id}`}
+                          value={JSON.stringify({
+                            ...rider,
+                            order_id: data.order_id,
+                          })}
+                        >
+                          {rider.name}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    <select
+                      id="progress_status"
+                      onChange={handleProgress}
+                      defaultValue={
+                        data.order_progress.title
+                          ? data.order_progress.title
+                          : data.order_progress
+                      }
+                    >
+                      <option
+                        disabled
+                        value={
+                          data.order_progress.title
+                            ? data.order_progress.title
+                            : data.order_progress
+                        }
+                      >
+                        {data.order_progress.title
+                          ? data.order_progress.title
+                          : data.order_progress}
+                      </option>
+                      {progress.map((progress, id) => (
+                        <option
+                          key={progress.id + `-${id}`}
+                          value={JSON.stringify({
+                            ...progress,
+                            order_id: data.order_id,
+                          })}
+                        >
+                          {progress.title}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
       <ToastContainer />
