@@ -13,7 +13,7 @@ import {
   getAllRiders,
   assignRider,
 } from './requests';
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -166,7 +166,7 @@ const Table = ({ tableHeader, tableData }) => {
         </thead>
         <tbody>
           {loading
-            ? 'loading...'
+            ? <div style={{ width: '100%', textAlign: 'center' }}>Loading...</div>
             : orders?.map((data, id) => (
                 <tr className={styles.tableData} key={id}>
                   <td className={styles.ellipsis}>
