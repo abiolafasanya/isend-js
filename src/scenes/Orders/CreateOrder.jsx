@@ -21,6 +21,7 @@ import {
   categories,
   country,
   findAddrEnpoint,
+  getPayableAmount
 } from './helpers';
 
 const CreateOrder = () => {
@@ -125,6 +126,13 @@ const CreateOrder = () => {
         coordinates: [result?.lat, result?.lng],
       },
     }));
+    const getPayment = {
+      delivery: orderForm.delivery_details.coordinates, 
+      hub: orderForm.hub_location.coordinates
+    }
+    const paymentResult = await getPayableAmount(getPayment.delivery, getPayment.hub)
+    console.log(paymentResult)
+
     setSuggestions([]);
   };
 

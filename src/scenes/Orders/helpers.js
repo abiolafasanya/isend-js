@@ -1,74 +1,94 @@
+import Axios from '../../api/axios';
+
 const handleFetchLongLat = (address) => {
-    let Endpoint;
-    if (process.env.NODE_ENV !== 'production') {
-      Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`;
-    } else {
-      Endpoint = `${process.env.REACT_APP_GOOGLE_GEOCODING}=${address}`;
-    }
-    return fetch(Endpoint)
-      .then((res) => res.json())
-      .then((data) => data)
-      .catch((error) => console.error(error));
-  };
+  let Endpoint;
+  if (process.env.NODE_ENV !== 'production') {
+    Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`;
+  } else {
+    Endpoint = `${process.env.REACT_APP_GOOGLE_GEOCODING}=${address}`;
+  }
+  return fetch(Endpoint)
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((error) => console.error(error));
+};
 
-  const defaultFormValue = {
-    senders_address: '',
-    receivers_address: '',
-    senders_phonenumber: '',
-    senders_email: '',
-    category: '',
-    receivers_name: '',
-    receivers_phonenumber: '',
-    item_value: 0,
-    delivery_note: '',
-    hub_location: {
-      address: '',
-      coordinates: [],
-    },
-    delivery_details: {
-      coordinates: [],
-      address: '',
-    },
-  };
+const defaultFormValue = {
+  senders_address: '',
+  receivers_address: '',
+  senders_phonenumber: '',
+  senders_email: '',
+  category: '',
+  receivers_name: '',
+  receivers_phonenumber: '',
+  item_value: 0,
+  delivery_note: '',
+  hub_location: {
+    address: '',
+    coordinates: [],
+  },
+  delivery_details: {
+    coordinates: [],
+    address: '',
+  },
+};
 
-  const country = [
-    {
-      value: 'NGN',
-      label: '+234',
-    },
-    {
-      value: 'GHN',
-      label: '+233',
-    },
-    {
-      value: 'USA',
-      label: '+1',
-    },
-  ];
-  
-  const categories = ['electronics', 'food', 'documents'];
+const country = [
+  {
+    value: 'NGN',
+    label: '+234',
+  },
+  {
+    value: 'GHN',
+    label: '+233',
+  },
+  {
+    value: 'USA',
+    label: '+1',
+  },
+];
 
- function findAddrEnpoint(searchTerm) {
-    let Endpoint;
-    if (process.env.NODE_ENV !== 'production') {
-      Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`;
-                //  `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
-      return Endpoint
-    } else {
-      Endpoint = `${process.env.REACT_APP_AUTOCOMPLETE_ADDRESS}=${searchTerm}`;
-      return Endpoint
-    }
-    
- }
+const categories = ['electronics', 'food', 'documents'];
 
-export {
-    handleFetchLongLat,
-    defaultFormValue,
-    country,
-    categories,
-    findAddrEnpoint
+function findAddrEnpoint(searchTerm) {
+  let Endpoint;
+  if (process.env.NODE_ENV !== 'production') {
+    Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`;
+    //  `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
+    return Endpoint;
+  } else {
+    Endpoint = `${process.env.REACT_APP_AUTOCOMPLETE_ADDRESS}=${searchTerm}`;
+    return Endpoint;
+  }
 }
 
+async function getPayableAmount({ deliveryCordinate, hubLocationCordinate }) {
+  const body = {
+    delivery_details: {
+      coordinates: deliveryCordinate,
+    },
+    hub_location: {
+      coordinates: hubLocationCordinate,
+    },
+  };
 
+  try {
+    const { data, status } = await Axios.post('/dispatch/compute', body);
+    if (status === 200 || status === 201) {
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error, 'something went wrong');
+  }
+}
 
-  // const url = 'https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=vgc'
+export {
+  handleFetchLongLat,
+  defaultFormValue,
+  country,
+  categories,
+  findAddrEnpoint,
+  getPayableAmount,
+};
+
+// const url = 'https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=vgc'
