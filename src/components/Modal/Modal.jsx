@@ -3,6 +3,7 @@ import styles from './Modal.module.css';
 import useApp from '../../hooks/useApp';
 import Cancel from '../../assets//icons/cancel.svg';
 import Axios from '../../api/axios';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Modal = () => {
   const {
@@ -32,7 +33,7 @@ const Modal = () => {
         setCustomModalTitle('Payment updated');
         setMessage('Payment status has been updated successfully!');
         toggleCustomModal();
-        setEvent(true)
+        setEvent(true);
         return;
       }
       return;
@@ -54,10 +55,7 @@ const Modal = () => {
     <>
       {openModal && (
         <div className={styles.modal}>
-          <CustomModal
-            title={customModalTitle}
-            message={message}
-          />
+          <CustomModal title={customModalTitle} message={message} />
           <article className={styles.card}>
             <img
               src={Cancel}
@@ -109,7 +107,7 @@ const Modal = () => {
 
 export default Modal;
 
-export const CustomModal = ({ title, message }) => {
+export const CustomModal = ({ title, message, success }) => {
   const { toggleCustomModal, openCustomModal } = useApp();
   return (
     <>
@@ -123,8 +121,12 @@ export const CustomModal = ({ title, message }) => {
               onClick={toggleCustomModal}
             />
             <header>
-              <h2 style={{  }}>{title}</h2>
+              <h2 style={{}}>{title}</h2>
             </header>
+           {success && <span style={{ fontSize: '100px' }}>
+              <CheckCircleIcon color="success" fontSize="inherit" />
+            </span>}
+
             <main className={styles.modal_message}>{message}</main>
           </article>
         </div>

@@ -43,7 +43,7 @@ const Orders = () => {
       
       setTableData(sortByDesc);
       setPagination(data.pagination);
-      console.log(events, 'testing');
+      console.log(events);
     }
     getTableData();
     return () => {

@@ -26,8 +26,12 @@
 }
 
 .modal .card_custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 596px;
-  padding: 3rem 2rem;
+  padding: 2rem;
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid rgba(84, 95, 125, 0.15);
@@ -176,5 +180,9 @@
   .modal .form_group input {
     width: 100%;
     margin: 0;
+  }
+
+  .modal .modal_message {
+    text-align: center;
   }
 }

@@ -20,6 +20,7 @@ const Table = ({ tableHeader, tableData }) => {
   const [progress, setProgress] = useState([]);
   const [riders, setRiders] = useState([]);
   const [orders, setOrders] = useState(() => tableData);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const progressData = async () => {
@@ -47,6 +48,7 @@ const Table = ({ tableHeader, tableData }) => {
   const handlePaymentModal = async (order_id) => {
     if (order_id === undefined) {
       setError(true);
+      setSuccess(false)
       setCustomModalTitle('Operation failed');
       setMessage(
         'You cant update this payment because the Order Id is: ' + order_id
@@ -55,6 +57,7 @@ const Table = ({ tableHeader, tableData }) => {
       return;
     }
     setError(false);
+    setSuccess(true)
     storeOrderId(order_id);
     toggleModal();
   };
@@ -96,6 +99,7 @@ const Table = ({ tableHeader, tableData }) => {
       return;
     }
     setError(false);
+    setSuccess(true)
     await progressUpdateHandler(body);
   };
 
@@ -117,13 +121,14 @@ const Table = ({ tableHeader, tableData }) => {
       return;
     }
     setError(false);
+    setSuccess(true)
     const data = await assignRider(body);
     console.log(data);
   };
 
   return (
     <div className={styles.table}>
-      <CustomModal title={customModalTitle} message={message} />
+      <CustomModal title={customModalTitle} message={message} success={success}/>
 
       <div className={styles.table_searchbox}>
         <input

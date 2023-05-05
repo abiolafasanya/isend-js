@@ -15,50 +15,18 @@ import { formatCurrency } from '../../utils/formatter';
 import { Link } from 'react-router-dom';
 import OrderCompleted from './component/OrderCompleted';
 import Axios from '../../api/axios';
-
-const country = [
-  {
-    value: 'NGN',
-    label: '+234',
-  },
-  {
-    value: 'GHN',
-    label: '+233',
-  },
-  {
-    value: 'USA',
-    label: '+1',
-  },
-];
-
-const categories = ['electronics', 'food', 'documents'];
-
-const defaultFormValue = {
-  senders_address: '',
-  receivers_address: '',
-  senders_phonenumber: '',
-  senders_email: '',
-  category: '',
-  receivers_name: '',
-  receivers_phonenumber: '',
-  item_value: 0,
-  delivery_note: '',
-  hub_location: {
-    address: '',
-    coordinates: [],
-  },
-  delivery_details: {
-    coordinates: [],
-    address: '',
-  },
-};
+import {
+  defaultFormValue,
+  handleFetchLongLat,
+  categories,
+  country,
+  findAddrEnpoint,
+} from './helpers';
 
 const CreateOrder = () => {
   const [total, setTotal] = useState(0);
   const [sendersAddr, setSendersAddr] = useState('');
   const [receiversAddr, setRecieversAddr] = useState('');
-  // const [receiversAddr, setRecieiversAddr] = useState(null);
-  // const [addressData] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [complete, setComplete] = useState(false);
   const [orderForm, setOrderForm] = useState(defaultFormValue);
@@ -90,19 +58,13 @@ const CreateOrder = () => {
 
     alert('error: data need to be handled');
   };
-  // const url = 'https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=vgc'
 
   const handleFetchSenderAddress = (event) => {
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
       console.log(searchTerm);
-      let Endpoint;
-      if (process.env.NODE_ENV !== 'production') {
-        Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`;
-      } else {
-        Endpoint = `${process.env.REACT_APP_AUTOCOMPLETE_ADDRESS}=${searchTerm}`;
-      }
-
+      const Endpoint = findAddrEnpoint(searchTerm);
+      console.log(Endpoint);
       setTimeout(() => {
         fetch(Endpoint)
           .then((res) => res.json())
@@ -111,7 +73,7 @@ const CreateOrder = () => {
             console.log(data.data.results);
           })
           .catch((error) => console.error(error));
-      }, 1000);
+      }, 500);
     }
     setSendersAddr(event.target.value);
   };
@@ -120,10 +82,9 @@ const CreateOrder = () => {
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
       console.log(searchTerm);
+      const Endpoint = findAddrEnpoint(searchTerm);
       setTimeout(() => {
-        fetch(
-          `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/place-autocomplete?address=${searchTerm}`
-        )
+        fetch(Endpoint)
           .then((res) => res.json())
           .then((data) => {
             setSuggestions(data.data.results);
@@ -147,7 +108,6 @@ const CreateOrder = () => {
         address: text,
         coordinates: [result?.lat, result?.lng],
       },
-      // senders_address: geoData.data.result,
     }));
     setSuggestions([]);
   };
@@ -166,19 +126,6 @@ const CreateOrder = () => {
       },
     }));
     setSuggestions([]);
-  };
-
-  const handleFetchLongLat = (address) => {
-    let Endpoint;
-    if (process.env.NODE_ENV !== 'production') {
-      Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`;
-    } else {
-      Endpoint = `${process.env.REACT_APP_GOOGLE_GEOCODING}=${address}`;
-    }
-    return fetch(Endpoint)
-      .then((res) => res.json())
-      .then((data) => data)
-      .catch((error) => console.error(error));
   };
 
   return (
@@ -385,7 +332,7 @@ const CreateOrder = () => {
                       <FormControl fullWidth>
                         <Select
                           id="category"
-                          value={'electronics'}
+                          defaultValue={'Select'}
                           onChange={({ target }) =>
                             setOrderForm((order) => ({
                               ...order,
@@ -393,6 +340,7 @@ const CreateOrder = () => {
                             }))
                           }
                         >
+                          <MenuItem value="Select" disabled>Select One</MenuItem>
                           {categories.map((category, id) => (
                             <MenuItem
                               key={id}
