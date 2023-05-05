@@ -44,10 +44,7 @@ const Modal = () => {
   };
 
   const updateStatus = async (body) => {
-    const { data } = await Axios.patch(
-      'https://isend-v1.herokuapp.com/api/v1/admin/payment',
-      body
-    );
+    const { data } = await Axios.patch('/admin/payment', body);
     return data;
   };
 
@@ -123,9 +120,11 @@ export const CustomModal = ({ title, message, success }) => {
             <header>
               <h2 style={{}}>{title}</h2>
             </header>
-           {success && <span style={{ fontSize: '100px' }}>
-              <CheckCircleIcon color="success" fontSize="inherit" />
-            </span>}
+            {success && (
+              <span style={{ fontSize: '100px' }}>
+                <CheckCircleIcon color="success" fontSize="inherit" />
+              </span>
+            )}
 
             <main className={styles.modal_message}>{message}</main>
           </article>

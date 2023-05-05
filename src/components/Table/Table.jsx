@@ -15,6 +15,7 @@ import {
 } from './requests';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Table = ({ tableHeader, tableData }) => {
   const [progress, setProgress] = useState([]);
@@ -48,7 +49,7 @@ const Table = ({ tableHeader, tableData }) => {
   const handlePaymentModal = async (order_id) => {
     if (order_id === undefined) {
       setError(true);
-      setSuccess(false)
+      setSuccess(false);
       setCustomModalTitle('Operation failed');
       setMessage(
         'You cant update this payment because the Order Id is: ' + order_id
@@ -57,7 +58,7 @@ const Table = ({ tableHeader, tableData }) => {
       return;
     }
     setError(false);
-    setSuccess(true)
+    setSuccess(true);
     storeOrderId(order_id);
     toggleModal();
   };
@@ -99,16 +100,20 @@ const Table = ({ tableHeader, tableData }) => {
       return;
     }
     setError(false);
-    setSuccess(true)
+    setSuccess(true);
     await progressUpdateHandler(body);
+    toast.info(`Progess changed to ${body.order_progress.title}`);
   };
 
   const handleAssignRider = async (e) => {
     const event = JSON.parse(e.currentTarget.value);
+    console.log(event);
+
     const body = {
       assignee: {
         name: event.name,
         phone_number: event.phone_number,
+        email: event.email,
       },
       order_id: event.order_id,
     };
@@ -121,14 +126,19 @@ const Table = ({ tableHeader, tableData }) => {
       return;
     }
     setError(false);
-    setSuccess(true)
+    setSuccess(true);
     const data = await assignRider(body);
+    toast.info(`${body.assignee.name} has been assigned`);
     console.log(data);
   };
 
   return (
     <div className={styles.table}>
-      <CustomModal title={customModalTitle} message={message} success={success}/>
+      <CustomModal
+        title={customModalTitle}
+        message={message}
+        success={success}
+      />
 
       <div className={styles.table_searchbox}>
         <input
@@ -214,6 +224,7 @@ const Table = ({ tableHeader, tableData }) => {
           ))}
         </tbody>
       </table>
+      <ToastContainer />
     </div>
   );
 };
