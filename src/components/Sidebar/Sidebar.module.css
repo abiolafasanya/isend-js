@@ -1,13 +1,14 @@
-.container {
+.container, .container_close {
   width: 379px;
 }
+
 .sidebar, .close {
   width: 100%;
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: #ffffff;
 }
 .sidebar_section1 {
-  margin: 1.5rem 2.5rem;
+  margin: 1.5rem 3rem;
   display: flex;
   gap: 3rem;
   align-items: center;
@@ -51,6 +52,7 @@
     background-color: rgba(0,0,0,0.5);
     z-index: 2;
     height: 100%;
+    width: 100%;
     transition: .5s ease-in-out;
   }
   .sidebar {
@@ -65,7 +67,7 @@
   }
   .close {
     display: none;
-    width: 0;
+    /* width: 0; */
   }
 
   .sidebar_section1 {

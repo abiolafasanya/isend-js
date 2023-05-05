@@ -24,15 +24,15 @@ export function formatDate(date) {
     return 'Invalid Date';
   }
 
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    // year: 'numeric',
-    // month: 'short',
-    // day: '2-digit',
-    // hour: 'numeric',
-    // minute: 'numeric',
+  const formattedDate = new Intl.DateTimeFormat(LOCALE.US, {
+    year: '2-digit',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
     hour12: true,
-    dateStyle: 'short',
-    timeStyle: 'short',
+    // dateStyle: 'short',
+    // timeStyle: 'short',
   }).format(parsedDate);
 
   return formattedDate;

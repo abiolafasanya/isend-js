@@ -3,7 +3,6 @@
   src: local("Plus Jakarta Sans"), url("../../assets/fonts/Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf") format("truetype");
 }
 
-
 .navbar {
   width: 100%;
   padding: 1rem 3rem;
@@ -12,7 +11,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
 .title .hamburger {
   display: none;
 }

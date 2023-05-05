@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
+import Axios from '../api/axios';
 
 const AppContext = createContext({});
 
@@ -46,6 +47,26 @@ export const AppProvider = ({ children }) => {
     setAuth(auth);
     return auth;
   };
+
+  const getAllOrders = async ({pageData}) => {
+    try {
+      const Endpoint = `/admin/orders?limit=${pageData.limit}}&page=${pageData.page}`; // limit=20&page=6
+      const { data } = await Axios.get(Endpoint);
+
+      // sort order by date descending using updatedAt timestamp
+      const sortByDesc = data.order.sort(function (a, b) {
+        return (
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+      });
+      setEvent(event => !event)
+      
+      console.log(events, data);
+      return {pagination: data.pagination, orders: sortByDesc} 
+    } catch (error) {
+      console.log('Error getting order data:', error.message);
+    }
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('auth');
@@ -101,6 +122,7 @@ export const AppProvider = ({ children }) => {
         handleLogout,
         closeSidebar,
         toggleSidebar,
+        getAllOrders,
       }}
     >
       {children}
