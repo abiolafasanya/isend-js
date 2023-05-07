@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormControl, Select, TextField, MenuItem } from '@mui/material';
 import styles from '../CreateOrder.module.css';
 import {
@@ -6,8 +6,8 @@ import {
   findAddrEnpoint,
   getPayableAmount,
   handleFetchLongLat,
-  categories,
 } from '../helpers';
+import Axios from '../../../api/axios';
 
 const DeliveryDetails = ({
   setOrderForm,
@@ -18,6 +18,19 @@ const DeliveryDetails = ({
   setTotal,
   orderForm,
 }) => {
+  const [categories, setCategories] = useState('');
+
+  useEffect(() => {
+    const fetchHubs = async () => {
+      const { data, status } = await Axios.get('/categories');
+      if (status === 200) {
+        setCategories(data.data?.categories);
+        console.log('categories', data.data);
+      }
+    };
+    fetchHubs().then((data) => data);
+  }, []);
+
   const handleFetchRecieverAddress = (event) => {
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
@@ -157,13 +170,13 @@ const DeliveryDetails = ({
           <MenuItem value="Select" disabled>
             Select One
           </MenuItem>
-          {categories.map((category, id) => (
+          {categories &&  categories?.map((item) => (
             <MenuItem
-              key={id}
-              value={category}
+              key={item._id}
+              value={item?.category}
               style={{ textTransform: 'capitalize' }}
             >
-              {category}
+              {item?.category}
             </MenuItem>
           ))}
         </Select>

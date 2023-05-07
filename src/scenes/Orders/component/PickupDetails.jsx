@@ -1,8 +1,8 @@
-import React from 'react';
-import { TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { FormControl, Select, TextField, MenuItem } from '@mui/material';
 import styles from '../CreateOrder.module.css';
 import { country, findAddrEnpoint, handleFetchLongLat } from '../helpers';
-import { MenuItem } from 'react-pro-sidebar';
+import Axios from '../../../api/axios';
 
 const PickupDetails = ({
   setOrderForm,
@@ -11,6 +11,20 @@ const PickupDetails = ({
   setSuggestions,
   setSendersAddr,
 }) => {
+  const [hubs, setHub] = useState([]);
+  const [hubAddress, setHubAddress] = useState('');
+
+  useEffect(() => {
+    const fetchHubs = async () => {
+      const { data, status } = await Axios.get('/hubs');
+      if (status === 200) {
+        setHub(data.data.hubs);
+        console.log('Hub', data.data.hubs);
+      }
+    };
+    fetchHubs().then((data) => data);
+  }, []);
+
   const handleFetchSenderAddress = (event) => {
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
@@ -30,6 +44,7 @@ const PickupDetails = ({
     setSendersAddr(event.target.value);
   };
 
+
   const onSuggestionHandler = async (text) => {
     setSendersAddr(text);
     const geoData = await handleFetchLongLat(text);
@@ -47,6 +62,28 @@ const PickupDetails = ({
   };
   return (
     <div>
+      <label htmlFor="senders_name">Hub location</label>
+      <FormControl fullWidth>
+        <Select
+          id="hub"
+          defaultValue={''}
+          value={hubAddress}
+          onChange={({ target }) => setHubAddress(target.value)}
+        >
+          <MenuItem value="Select" disabled>
+            Select One
+          </MenuItem>
+          {hubs?.map((hub) => (
+            <MenuItem
+              key={hub._id}
+              value={hub?.address}
+              style={{ textTransform: 'capitalize' }}
+            >
+              {hub?.address}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <label htmlFor="senders_name">Senders Name</label>
       <TextField
         className={styles.form_control}
