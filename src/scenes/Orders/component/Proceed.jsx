@@ -32,6 +32,8 @@ const Proceed = ({ orderForm, total, setComplete, decrement, increment, priceDet
             are not be eligible for delivery.
           </AlertTitle>
         </Alert>
+      </Box>
+      <Box sx={{ marginTop: '2.5rem' }}>
         <div className={styles.fare}>
           <h5>Distance fare</h5>
           <div>{formatCurrency(priceDetails?.delivery_fare)}</div>
