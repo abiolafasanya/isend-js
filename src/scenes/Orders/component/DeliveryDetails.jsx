@@ -19,6 +19,7 @@ const DeliveryDetails = ({
   orderForm,
 }) => {
   const [categories, setCategories] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     const fetchHubs = async () => {
@@ -33,6 +34,8 @@ const DeliveryDetails = ({
 
   const handleFetchRecieverAddress = (event) => {
     const searchTerm = event.target.value;
+    setIsTyping(true);
+    
     if (searchTerm.length > 0) {
       console.log(searchTerm);
       const Endpoint = findAddrEnpoint(searchTerm);
@@ -45,6 +48,8 @@ const DeliveryDetails = ({
           })
           .catch((error) => console.error(error));
       }, 1000);
+    } else {
+      setIsTyping(false)
     }
     setRecieversAddr(event.target.value);
   };
@@ -74,6 +79,7 @@ const DeliveryDetails = ({
     console.log(paymentResult);
 
     setSuggestions([]);
+    setIsTyping(false);
   };
 
   return (
@@ -97,14 +103,14 @@ const DeliveryDetails = ({
       <TextField
         className={styles.form_control}
         fullWidth
-        type="text"
+        type="search"
         value={receiversAddr}
         name="recievers_address"
         id="recievers_address"
         placeholder="2715 Ash Dr. San Jose, South Dakota 83475"
         onChange={handleFetchRecieverAddress}
       />
-      {suggestions && suggestions.length > 0 && (
+      {isTyping && suggestions && suggestions.length > 0 && (
         <div id="addrlist" className={styles.addressList}>
           {suggestions?.map((address, i) => (
             <div
@@ -170,15 +176,16 @@ const DeliveryDetails = ({
           <MenuItem value="Select" disabled>
             Select One
           </MenuItem>
-          {categories &&  categories?.map((item) => (
-            <MenuItem
-              key={item._id}
-              value={item?.category}
-              style={{ textTransform: 'capitalize' }}
-            >
-              {item?.category}
-            </MenuItem>
-          ))}
+          {categories &&
+            categories?.map((item) => (
+              <MenuItem
+                key={item._id}
+                value={item?.category}
+                style={{ textTransform: 'capitalize' }}
+              >
+                {item?.category}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
 

@@ -109,6 +109,13 @@ label {
   font-size: 24px;
 }
 
+.fare {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
 .proceed_btn {
   color: #000 !important;
   margin-top: 1rem !important;

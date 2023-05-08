@@ -32,6 +32,14 @@ const Proceed = ({ orderForm, total, setComplete, decrement, increment }) => {
             are not be eligible for delivery.
           </AlertTitle>
         </Alert>
+        <div className={styles.fare}>
+          <h5>Distance fare</h5>
+          <div>amount</div>
+        </div>
+        <div className={styles.fare}>
+          <h5>Base fare</h5>
+          <div>amount</div>
+        </div>
       </Box>
       <Box className={styles.total_container}>
         <h3>Total</h3>

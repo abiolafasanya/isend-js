@@ -39,17 +39,14 @@ const Dashboard = () => {
 
         setTableData(sortByDesc);
         setPagination(data.pagination);
-        console.log(events);
+        // console.log(events);
       } catch (error) {
         console.log('Error getting order data:', error.message);
       }
     }
 
-    getTableData().then(data => data);
+    getTableData().then((data) => data);
 
-    return () => {
-      console.log('cleanup complete');
-    };
   }, [pageData, events, auth]);
 
   return (

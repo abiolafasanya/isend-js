@@ -27,7 +27,7 @@ const Status = () => {
          customers: customers.pagination.totalResults,
          riders: riders.pagination.totalResults,
        };
-       console.log(data);
+      //  console.log(data);
       setStatus(data);
       orderGain(orders)
     }

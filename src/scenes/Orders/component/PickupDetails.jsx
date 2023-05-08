@@ -44,7 +44,6 @@ const PickupDetails = ({
     setSendersAddr(event.target.value);
   };
 
-
   const onSuggestionHandler = async (text) => {
     setSendersAddr(text);
     const geoData = await handleFetchLongLat(text);
@@ -60,6 +59,20 @@ const PickupDetails = ({
     }));
     setSuggestions([]);
   };
+
+  const setHubLocationAndAddress = (data) => {
+    setHubAddress(() => data?.address);
+    console.log(data);
+    console.log(data.coordinates);
+    setOrderForm((order) => ({
+      ...order,
+      hub_location: {
+        address: data?.address,
+        coordinates: data?.coordinates,
+      },
+    }));
+  }
+  
   return (
     <div>
       <label htmlFor="senders_name">Hub location</label>
@@ -68,7 +81,10 @@ const PickupDetails = ({
           id="hub"
           defaultValue={''}
           value={hubAddress}
-          onChange={({ target }) => setHubAddress(target.value)}
+          onChange={({ target }) => {
+            const selectedHub = hubs.find((hub) => hub?.address === target.value);
+            setHubLocationAndAddress(selectedHub ? { ...selectedHub } : null);
+          }}
         >
           <MenuItem value="Select" disabled>
             Select One
@@ -102,7 +118,7 @@ const PickupDetails = ({
       <TextField
         className={styles.form_control}
         fullWidth
-        type="text"
+        type="search"
         value={sendersAddr}
         name="senders_address"
         id="senders_address"
