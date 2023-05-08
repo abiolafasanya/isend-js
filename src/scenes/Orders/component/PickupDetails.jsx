@@ -4,22 +4,16 @@ import styles from '../CreateOrder.module.css';
 import { country, findAddrEnpoint, handleFetchLongLat } from '../helpers';
 import Axios from '../../../api/axios';
 
-const PickupDetails = ({
-  setOrderForm,
-  suggestions,
-  sendersAddr,
-  setSuggestions,
-  setSendersAddr,
-}) => {
+const PickupDetails = ({ setOrderForm, sendersAddr, setSendersAddr }) => {
   const [hubs, setHub] = useState([]);
   const [hubAddress, setHubAddress] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     const fetchHubs = async () => {
       const { data, status } = await Axios.get('/hubs');
       if (status === 200) {
         setHub(data.data.hubs);
-        // console.log('Hub', data.data.hubs);
       }
     };
     fetchHubs().then((data) => data);
@@ -28,15 +22,12 @@ const PickupDetails = ({
   const handleFetchSenderAddress = (event) => {
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
-      console.log(searchTerm);
       const Endpoint = findAddrEnpoint(searchTerm);
-      console.log(Endpoint);
       setTimeout(() => {
         fetch(Endpoint)
           .then((res) => res.json())
           .then((data) => {
             setSuggestions(data.data.results);
-            console.log(data.data.results);
           })
           .catch((error) => console.error(error));
       }, 500);
@@ -45,10 +36,10 @@ const PickupDetails = ({
   };
 
   const onSuggestionHandler = async (text) => {
+    setSuggestions([]);
     setSendersAddr(text);
     const geoData = await handleFetchLongLat(text);
-    console.log(geoData.data.result);
-    let result = geoData.data.result;
+    let result = geoData.result;
     setOrderForm((order) => ({
       ...order,
       senders_address: text,
@@ -57,13 +48,12 @@ const PickupDetails = ({
         coordinates: [result?.lat, result?.lng],
       },
     }));
-    setSuggestions([]);
   };
 
   const setHubLocationAndAddress = (data) => {
     setHubAddress(() => data?.address);
-    console.log(data);
-    console.log(data.coordinates);
+    // console.log(data);
+    // console.log(data.coordinates);
     setOrderForm((order) => ({
       ...order,
       hub_location: {
@@ -71,8 +61,8 @@ const PickupDetails = ({
         coordinates: data?.coordinates,
       },
     }));
-  }
-  
+  };
+
   return (
     <div>
       <label htmlFor="senders_name">Hub location</label>
@@ -82,7 +72,9 @@ const PickupDetails = ({
           defaultValue={''}
           value={hubAddress}
           onChange={({ target }) => {
-            const selectedHub = hubs.find((hub) => hub?.address === target.value);
+            const selectedHub = hubs.find(
+              (hub) => hub?.address === target.value
+            );
             setHubLocationAndAddress(selectedHub ? { ...selectedHub } : null);
           }}
         >

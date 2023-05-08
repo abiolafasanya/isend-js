@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../CreateOrder.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const OrderCompleted = ({detail}) => {
+const OrderCompleted = ({detail, orderId}) => {
   const navigate = useNavigate()
   return (
     <Box className={styles['create-order']}>
@@ -19,7 +19,7 @@ const OrderCompleted = ({detail}) => {
             Order Created{' '}
           </Typography>
           <Typography component={'p'}>
-            A tracking Id and Invoice has been sent to [
+            A tracking Id ({orderId}) and Invoice has been sent to [
             {`${detail.senders_email} or ${detail.senders_phonenumber}`} ]{' '}
           </Typography>
           <Button

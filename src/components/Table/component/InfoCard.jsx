@@ -17,18 +17,22 @@ const InfoCard = ({ data }) => {
           </div>
           <article>
             <div className={styles.data}>
-              <h4>Assignee Name</h4>
-              <p>{data.assignee.name ? data.assignee.name : 'not available'}</p>
+              <h4>Senders Name</h4>
+              <p>{data.senders_name ? data.senders_name : 'not available'}</p>
             </div>
             <div className={styles.data}>
-              <h4>Assignee Number</h4>
+              <h4>Senders Email</h4>
+              <p>{data.senders_email ? data.senders_email : 'not available'}</p>
+            </div>
+            <div className={styles.data}>
+              <h4>Senders Phone</h4>
               <p>
-                {data.assignee.number ? data.assignee.number : 'not available'}
+                {data.senders_number ? data.senders_number : 'not available'}
               </p>
             </div>
             <div className={styles.data}>
-              <h4>Category</h4>
-              <p>{data.category ? data.category : 'not available'}</p>
+              <h4>Status</h4>
+              <p>{data.order_status ? data.order_status : 'not available'}</p>
             </div>
           </article>
         </div>

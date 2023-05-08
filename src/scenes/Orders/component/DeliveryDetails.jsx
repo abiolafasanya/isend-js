@@ -4,23 +4,18 @@ import styles from '../CreateOrder.module.css';
 import {
   country,
   findAddrEnpoint,
-  getPayableAmount,
   handleFetchLongLat,
 } from '../helpers';
 import Axios from '../../../api/axios';
 
 const DeliveryDetails = ({
   setOrderForm,
-  suggestions,
-  setSuggestions,
   setRecieversAddr,
   receiversAddr,
-  setTotal,
-  orderForm,
-  priceInfo,
 }) => {
   const [categories, setCategories] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     const fetchHubs = async () => {
@@ -55,10 +50,11 @@ const DeliveryDetails = ({
   };
 
   const onSuggestionReceiverHandler = async (text) => {
+    setIsTyping(false);
+    setSuggestions([]);
     setRecieversAddr(text);
     const geoData = await handleFetchLongLat(text);
-    console.log(geoData.data.result);
-    let result = geoData.data.result;
+    let result = geoData.result;
     setOrderForm((order) => ({
       ...order,
       receivers_address: text,
@@ -67,20 +63,7 @@ const DeliveryDetails = ({
         coordinates: [result?.lat, result?.lng],
       },
     }));
-    const getPayment = {
-      delivery: [result?.lat, result?.lng],
-      hub: orderForm.hub_location.coordinates,
-    };
-    const paymentResult = await getPayableAmount({
-      deliveryCordinate: getPayment.delivery,
-      hubLocationCordinate: getPayment.hub,
-    });
-    priceInfo(paymentResult);
-    setTotal(paymentResult.total);
-    console.log(paymentResult);
-
-    setSuggestions([]);
-    setIsTyping(false);
+    
   };
 
   return (

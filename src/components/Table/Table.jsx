@@ -189,7 +189,6 @@ const Table = ({ tableHeader, tableData }) => {
                   </Button>
                   { openInfoCardId === data.order_id &&
                     <InfoCard
-                    // isOpen={openInfoCardId === data.order_id}/
                     data={data}
                   />
                   }

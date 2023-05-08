@@ -10,9 +10,6 @@ const Pagination = ({ pagination, setPageData }) => {
         const currentPage = { limit: data.limit, page: pagination.currentPage };
         return currentPage;
       });
-      console.log('Current Page:', pagination.currentPage);
-    } else {
-      console.log('You are already on the first page.');
     }
   };
 
@@ -23,10 +20,7 @@ const Pagination = ({ pagination, setPageData }) => {
         const currentPage = { limit: data.limit, page: pagination.currentPage };
         return currentPage;
       });
-      console.log('Current Page:', pagination.currentPage);
-    } else {
-      console.log('You are already on the last page.');
-    }
+    } 
   };
 
   const handleLimitChange = (
@@ -38,7 +32,7 @@ const Pagination = ({ pagination, setPageData }) => {
       const currentPage = { ...data, limit: limit };
       return currentPage;
     });
-    console.log(`Limit: ${limit}`);
+    // console.log(`Limit: ${limit}`);
   };
 
   

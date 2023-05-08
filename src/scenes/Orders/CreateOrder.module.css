@@ -94,7 +94,7 @@ label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  /* column-gap: 0.2rem; */
   border: 1px solid #cfcbc3;
   border-radius: 5px;
   height: 60px;
@@ -144,6 +144,18 @@ label {
   cursor: pointer;
 }
 
+.delivery_total {
+  outline: none;
+  border: none;
+  appearance: none;
+  background-color: transparent;
+  width: 90px;
+}
+.delivery_total:active, .delivery_total:hover, .delivery_total:focus {
+  appearance: none;
+  outline: none;
+  border: none;
+ }
 @media (max-width: 720px) and (min-width: 294px) {
   .create-order {
     width: 100%;

@@ -1,16 +1,19 @@
 import Axios from '../../api/axios';
+import axios from 'axios'
 
-const handleFetchLongLat = (address) => {
+const handleFetchLongLat = async (address) => {
   let Endpoint;
   if (process.env.NODE_ENV !== 'production') {
     Endpoint = `https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=${address}`;
   } else {
     Endpoint = `${process.env.REACT_APP_GOOGLE_GEOCODING}=${address}`;
   }
-  return fetch(Endpoint)
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((error) => console.error(error));
+  const {data} = await axios.get(Endpoint);
+  return data.data;
+  // return await fetch(Endpoint)
+  //   .then((res) => res.json())
+  //   .then((data) => data)
+  //   .catch((error) => console.error(error));
 };
 
 const defaultFormValue = {
@@ -82,12 +85,30 @@ async function getPayableAmount({ deliveryCordinate, hubLocationCordinate }) {
   try {
     const { data, status } = await Axios.post('/admin/compute', body);
     if (status === 200 || status === 201) {
-      console.log(data);
       return data;
     }
   } catch (error) {
     console.log(error, 'something went wrong');
   }
+}
+
+const computeTotal = async ({address, priceInfo, setTotal, orderForm}) => {
+  const geoData = await handleFetchLongLat(address);
+  // return console.log(address, await geoData);
+  let result = geoData?.result;
+  const getPayment = {
+    delivery: [result?.lat, result?.lng],
+    hub: orderForm?.hub_location.coordinates,
+  };
+  const paymentResult = await getPayableAmount({
+    deliveryCordinate: getPayment.delivery,
+    hubLocationCordinate: getPayment.hub,
+  });
+
+  priceInfo(paymentResult);
+  setTotal(paymentResult.total);
+
+  return true
 }
 
 export {
@@ -98,6 +119,7 @@ export {
   findAddrEnpoint,
   getPayableAmount,
   priceProps,
+  computeTotal,
 };
 
 // const url = 'https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=vgc'
