@@ -1,0 +1,38 @@
+
+.infoCard {
+  background: rgba(255,255,255,0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 3px 3px 10px 3px #dddddd;
+    z-index: 2;
+  width: 250px;
+  /* min-height: 250px; */
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 1rem;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.cancelBox {
+  display: flex;
+  color: red;
+  justify-content: right;
+  align-items: right;
+}
+.data {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  /* gap: .5rem; */
+}

@@ -19,7 +19,7 @@ const PickupDetails = ({
       const { data, status } = await Axios.get('/hubs');
       if (status === 200) {
         setHub(data.data.hubs);
-        console.log('Hub', data.data.hubs);
+        // console.log('Hub', data.data.hubs);
       }
     };
     fetchHubs().then((data) => data);

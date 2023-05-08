@@ -160,3 +160,6 @@
   text-decoration: none;
   color: inherit;
 }
+.ellipsis {
+  position: relative;
+}

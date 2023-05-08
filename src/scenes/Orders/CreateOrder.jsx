@@ -4,7 +4,7 @@ import styles from './CreateOrder.module.css';
 import { ArrowBack } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import OrderCompleted from './component/OrderCompleted';
-import { defaultFormValue } from './helpers';
+import { defaultFormValue, priceProps } from './helpers';
 import Proceed from './component/Proceed';
 import PickupDetails from './component/PickupDetails';
 import DeliveryDetails from './component/DeliveryDetails';
@@ -16,15 +16,20 @@ const CreateOrder = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [complete, setComplete] = useState(false);
   const [orderForm, setOrderForm] = useState(defaultFormValue);
+  const [priceDetails, setPriceDetails] = useState(priceProps);
 
   const increment = () => {
-    setTotal((total) => total + 100);
+    setTotal((total) => parseInt(total) + 100);
   };
 
   const decrement = () => {
     if (total !== 0) {
-      setTotal((total) => total - 100);
+      setTotal((total) => parseInt(total) - 100);
     }
+  };
+
+  const priceInfo = (fare) => {
+    setPriceDetails(fare);
   };
 
   return (
@@ -51,7 +56,6 @@ const CreateOrder = () => {
                 <Box className={styles['area-a']}>
                   <Box className={styles.pickup_details}>
                     <form>
-
                       <PickupDetails
                         sendersAddr={sendersAddr}
                         setOrderForm={setOrderForm}
@@ -70,8 +74,8 @@ const CreateOrder = () => {
                         setTotal={setTotal}
                         suggestions={suggestions}
                         orderForm={orderForm}
+                        priceInfo={priceInfo}
                       />
-                      
                     </form>
                   </Box>
                 </Box>
@@ -83,6 +87,7 @@ const CreateOrder = () => {
                 setComplete={setComplete}
                 total={total}
                 key={Date.now()}
+                priceDetails={priceDetails}
               />
             </Box>
           </main>

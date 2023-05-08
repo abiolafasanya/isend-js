@@ -33,6 +33,13 @@ const defaultFormValue = {
   },
 };
 
+const priceProps = {
+  distance: 0,
+  delivery_fare: 0,
+  base_fee: 0,
+  total: 0,
+};
+
 const country = [
   {
     value: 'NGN',
@@ -73,9 +80,10 @@ async function getPayableAmount({ deliveryCordinate, hubLocationCordinate }) {
   };
 
   try {
-    const { data, status } = await Axios.post('/dispatch/compute', body);
+    const { data, status } = await Axios.post('/admin/compute', body);
     if (status === 200 || status === 201) {
       console.log(data);
+      return data;
     }
   } catch (error) {
     console.log(error, 'something went wrong');
@@ -89,6 +97,7 @@ export {
   categories,
   findAddrEnpoint,
   getPayableAmount,
+  priceProps,
 };
 
 // const url = 'https://isend-web-65zjgqeauq-ew.a.run.app/booking/api/geocoding?address=vgc'

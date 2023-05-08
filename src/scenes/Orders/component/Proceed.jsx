@@ -4,7 +4,7 @@ import { formatCurrency } from '../../../utils/formatter';
 import styles from '../CreateOrder.module.css';
 import Axios from '../../../api/axios';
 
-const Proceed = ({ orderForm, total, setComplete, decrement, increment }) => {
+const Proceed = ({ orderForm, total, setComplete, decrement, increment, priceDetails }) => {
   const handleProceed = async () => {
     orderForm.item_value = parseInt(total);
     console.log('data', orderForm);
@@ -34,11 +34,11 @@ const Proceed = ({ orderForm, total, setComplete, decrement, increment }) => {
         </Alert>
         <div className={styles.fare}>
           <h5>Distance fare</h5>
-          <div>amount</div>
+          <div>{formatCurrency(priceDetails?.delivery_fare)}</div>
         </div>
         <div className={styles.fare}>
           <h5>Base fare</h5>
-          <div>amount</div>
+          <div>{formatCurrency(priceDetails?.base_fee)}</div>
         </div>
       </Box>
       <Box className={styles.total_container}>
@@ -47,7 +47,7 @@ const Proceed = ({ orderForm, total, setComplete, decrement, increment }) => {
           <Button variant="inherit" onClick={() => decrement()}>
             -
           </Button>
-          <div>{formatCurrency(total)}</div>
+          <div>{formatCurrency(parseInt(total))}</div>
           <Button variant="inherit" onClick={() => increment()}>
             +
           </Button>

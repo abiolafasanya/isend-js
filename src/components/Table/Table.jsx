@@ -16,6 +16,7 @@ import {
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import InfoCard from './component/InfoCard';
 
 const Table = ({ tableHeader, tableData }) => {
   const [progress, setProgress] = useState([]);
@@ -23,6 +24,12 @@ const Table = ({ tableHeader, tableData }) => {
   const [orders, setOrders] = useState(() => tableData);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [openInfoCardId, setOpenInfoCardId] = useState(null);
+
+  const toggleInfoCard = (data) => {
+    // console.log(openInfoCardId);
+    setOpenInfoCardId(data.order_id);
+  };
 
   useEffect(() => {
     const progressData = async () => {
@@ -177,7 +184,15 @@ const Table = ({ tableHeader, tableData }) => {
                 </td>
                 <td>{data.category}</td>
                 <td className={styles.ellipsis}>
-                  {data.order_id ? data.order_id : 'Not Available'}
+                  <Button onClick={() => toggleInfoCard(data)}>
+                    {data.order_id ? data.order_id : 'Not Available'}
+                  </Button>
+                  { openInfoCardId === data.order_id &&
+                    <InfoCard
+                    // isOpen={openInfoCardId === data.order_id}/
+                    data={data}
+                  />
+                  }
                 </td>
                 <td>{formatCurrency(data.total)}</td>
                 <td className={styles[`${stateOfStatus(id)}`]}>

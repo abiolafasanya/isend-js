@@ -17,6 +17,7 @@ const DeliveryDetails = ({
   receiversAddr,
   setTotal,
   orderForm,
+  priceInfo,
 }) => {
   const [categories, setCategories] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -26,7 +27,6 @@ const DeliveryDetails = ({
       const { data, status } = await Axios.get('/categories');
       if (status === 200) {
         setCategories(data.data?.categories);
-        console.log('categories', data.data);
       }
     };
     fetchHubs().then((data) => data);
@@ -35,21 +35,21 @@ const DeliveryDetails = ({
   const handleFetchRecieverAddress = (event) => {
     const searchTerm = event.target.value;
     setIsTyping(true);
-    
+
     if (searchTerm.length > 0) {
-      console.log(searchTerm);
+      // console.log(searchTerm);
       const Endpoint = findAddrEnpoint(searchTerm);
       setTimeout(() => {
         fetch(Endpoint)
           .then((res) => res.json())
           .then((data) => {
             setSuggestions(data.data.results);
-            console.log(data.data.results);
+            // console.log(data.data.results);
           })
           .catch((error) => console.error(error));
-      }, 1000);
+      }, 500);
     } else {
-      setIsTyping(false)
+      setIsTyping(false);
     }
     setRecieversAddr(event.target.value);
   };
@@ -75,7 +75,8 @@ const DeliveryDetails = ({
       deliveryCordinate: getPayment.delivery,
       hubLocationCordinate: getPayment.hub,
     });
-
+    priceInfo(paymentResult);
+    setTotal(paymentResult.total);
     console.log(paymentResult);
 
     setSuggestions([]);
@@ -193,12 +194,11 @@ const DeliveryDetails = ({
       <TextField
         className={styles.form_control}
         fullWidth
-        type="number"
+        type="text"
         name="item_value"
         id="item_value"
         placeholder="Enter Value of Item"
         onChange={({ target }) => {
-          setTotal(parseInt(target.value));
           return setOrderForm((order) => ({
             ...order,
             item_value: target.value,

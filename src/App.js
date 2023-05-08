@@ -1,6 +1,6 @@
 import Dashboard from './scenes/dashboard/Dashboard.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Orders from './scenes/Orders/index';
+import Orders from './scenes/Orders/Orders.jsx';
 import Layout from './components/Layout/Layout';
 import PageNotFound from './components/404.jsx';
 import Construction from './components/Construction';
