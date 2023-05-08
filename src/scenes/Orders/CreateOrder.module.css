@@ -113,7 +113,9 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 1rem 0;
   border-bottom: 1px solid #ccc;
+  line-height: 1.6;
 }
 
 .proceed_btn {
