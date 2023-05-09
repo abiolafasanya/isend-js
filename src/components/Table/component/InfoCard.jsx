@@ -27,7 +27,7 @@ const InfoCard = ({ data }) => {
             <div className={styles.data}>
               <h4>Senders Phone</h4>
               <p>
-                {data.senders_number ? data.senders_number : 'not available'}
+                {data.senders_phonenumber ? data.senders_phonenumber : 'not available'}
               </p>
             </div>
             <div className={styles.data}>

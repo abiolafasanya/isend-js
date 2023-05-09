@@ -12,6 +12,7 @@ const DeliveryDetails = ({
   setOrderForm,
   setRecieversAddr,
   receiversAddr,
+  setIsComputed,
 }) => {
   const [categories, setCategories] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -28,6 +29,7 @@ const DeliveryDetails = ({
   }, []);
 
   const handleFetchRecieverAddress = (event) => {
+    setIsComputed(false)
     const searchTerm = event.target.value;
     setIsTyping(true);
 

@@ -1,34 +1,46 @@
 import { Alert, AlertTitle, Box, Button } from '@mui/material';
-import React from 'react';
 import { formatCurrency } from '../../../utils/formatter';
 import styles from '../CreateOrder.module.css';
 import Axios from '../../../api/axios';
 
 const Proceed = ({
   orderForm,
-  total,
   setComplete,
-  decrement,
-  increment,
-  priceDetails,
   computeTotal,
-  priceInfo,
-  setTotal,
   isComputed,
   setIsComputed,
-  setOrderId
+  setOrderId,
+  setOrderForm,
 }) => {
+  const increment = () => {
+    setOrderForm((order) => ({
+      ...order,
+      delivery_fare: parseInt(order.delivery_fare) + 100,
+    }));
+    console.log(orderForm.delivery_fare);
+  };
+
+  const decrement = () => {
+    if (orderForm.delivery_fare !== 0) {
+      setOrderForm((order) => ({
+        ...order,
+        delivery_fare: parseInt(order.delivery_fare) - 100,
+      }));
+      console.log(orderForm.delivery_fare);
+    }
+  };
+
   const handleProceed = async () => {
-    orderForm.item_value = parseInt(total);
-    // console.log('data', orderForm);
+    delete orderForm.base_fee;
+    console.log('data', orderForm);
 
     try {
       const response = await Axios.post('/admin/create-order', orderForm);
 
       if (response.status === 200 || response.status === 201) {
         console.log(response.data);
-        setOrderId(response.data.data)
-        
+        setOrderId(response.data.data);
+
         setComplete(true);
       }
     } catch (error) {
@@ -39,16 +51,18 @@ const Proceed = ({
   const handleComputeTotal = async () => {
     const params = {
       address: orderForm.delivery_details.address,
-      priceInfo,
-      setTotal,
       orderForm,
     };
     const result = await computeTotal(params);
     if (result) {
-      console.log(isComputed);
+      console.log(result.delivery_fare, 'result here');
       console.log(result, 'compute complete');
       setIsComputed(true);
-      return;
+      setOrderForm((order) => ({
+        ...order,
+        delivery_fare: result?.delivery_fare,
+        base_fee: result?.base_fee,
+      }));
     }
   };
 
@@ -64,14 +78,16 @@ const Proceed = ({
           </AlertTitle>
         </Alert>
       </Box>
-      <Box sx={{ marginTop: '2.5rem' }}>
+      <Box className={''}>
         <div className={styles.fare}>
           <h5>Distance fare</h5>
-          <div>{formatCurrency(priceDetails?.delivery_fare)}</div>
+          <div>{formatCurrency(orderForm.delivery_fare)}</div>
         </div>
         <div className={styles.fare}>
           <h5>Base fare</h5>
-          <div>{formatCurrency(priceDetails?.base_fee)}</div>
+          <div>
+            {formatCurrency(orderForm?.base_fee ? orderForm?.base_fee : 0)}
+          </div>
         </div>
       </Box>
       <Box className={styles.total_container}>
@@ -80,7 +96,12 @@ const Proceed = ({
           <Button variant="inherit" onClick={() => decrement()}>
             -
           </Button>
-          <div>{formatCurrency(parseInt(total))}</div>
+          <div>
+            {formatCurrency(
+              parseInt(orderForm?.delivery_fare) +
+                parseInt(orderForm?.base_fee ? orderForm?.base_fee : 0)
+            )}
+          </div>
           <Button variant="inherit" onClick={() => increment()}>
             +
           </Button>

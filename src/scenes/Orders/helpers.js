@@ -26,6 +26,7 @@ const defaultFormValue = {
   receivers_phonenumber: '',
   item_value: 0,
   delivery_note: '',
+  delivery_fare: 0,
   hub_location: {
     address: '',
     coordinates: [],
@@ -92,7 +93,7 @@ async function getPayableAmount({ deliveryCordinate, hubLocationCordinate }) {
   }
 }
 
-const computeTotal = async ({address, priceInfo, setTotal, orderForm}) => {
+const computeTotal = async ({address, orderForm}) => {
   const geoData = await handleFetchLongLat(address);
   // return console.log(address, await geoData);
   let result = geoData?.result;
@@ -105,10 +106,8 @@ const computeTotal = async ({address, priceInfo, setTotal, orderForm}) => {
     hubLocationCordinate: getPayment.hub,
   });
 
-  priceInfo(paymentResult);
-  setTotal(paymentResult.total);
+  return  paymentResult
 
-  return true
 }
 
 export {

@@ -19,16 +19,3 @@ const Layout = () => {
 };
 
 export default Layout;
-
-
-// {auth?.isLoggedIn ? (
-//   <div className={styles.container}>
-//     <Header />
-//     <div className={styles.main}>
-//       <Sidebar />
-//       <Outlet />
-//     </div>
-//   </div>
-// ) : (
-//   <Navigate to={'/login'} state={{ from: location.pathname }} replace />
-// )}

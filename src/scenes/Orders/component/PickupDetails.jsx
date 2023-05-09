@@ -4,7 +4,7 @@ import styles from '../CreateOrder.module.css';
 import { country, findAddrEnpoint, handleFetchLongLat } from '../helpers';
 import Axios from '../../../api/axios';
 
-const PickupDetails = ({ setOrderForm, sendersAddr, setSendersAddr }) => {
+const PickupDetails = ({ setOrderForm, sendersAddr, setSendersAddr ,setIsComputed}) => {
   const [hubs, setHub] = useState([]);
   const [hubAddress, setHubAddress] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -20,6 +20,7 @@ const PickupDetails = ({ setOrderForm, sendersAddr, setSendersAddr }) => {
   }, []);
 
   const handleFetchSenderAddress = (event) => {
+    setIsComputed(false)
     const searchTerm = event.target.value;
     if (searchTerm.length > 0) {
       const Endpoint = findAddrEnpoint(searchTerm);

@@ -4,34 +4,18 @@ import styles from './CreateOrder.module.css';
 import { ArrowBack } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import OrderCompleted from './component/OrderCompleted';
-import { computeTotal, defaultFormValue, priceProps } from './helpers';
+import { computeTotal, defaultFormValue } from './helpers';
 import Proceed from './component/Proceed';
 import PickupDetails from './component/PickupDetails';
 import DeliveryDetails from './component/DeliveryDetails';
 
 const CreateOrder = () => {
-  const [total, setTotal] = useState(0);
   const [sendersAddr, setSendersAddr] = useState('');
   const [receiversAddr, setRecieversAddr] = useState('');
   const [complete, setComplete] = useState(false);
   const [orderForm, setOrderForm] = useState(defaultFormValue);
-  const [priceDetails, setPriceDetails] = useState(priceProps);
   const [isComputed, setIsComputed] = useState(false);
   const [orderId, setOrderId] = useState('');
-
-  const increment = () => {
-    setTotal((total) => parseInt(total) + 100);
-  };
-
-  const decrement = () => {
-    if (total !== 0) {
-      setTotal((total) => parseInt(total) - 100);
-    }
-  };
-
-  const priceInfo = (fare) => {
-    setPriceDetails(fare);
-  };
 
   return (
     <>
@@ -61,6 +45,7 @@ const CreateOrder = () => {
                         sendersAddr={sendersAddr}
                         setOrderForm={setOrderForm}
                         setSendersAddr={setSendersAddr}
+                        setIsComputed={setIsComputed}
                       />
 
                       <div style={{ marginTop: 40 }}></div>
@@ -69,25 +54,21 @@ const CreateOrder = () => {
                         receiversAddr={receiversAddr}
                         setOrderForm={setOrderForm}
                         setRecieversAddr={setRecieversAddr}
+                        setIsComputed={setIsComputed}
                       />
                     </form>
                   </Box>
                 </Box>
               </section>
               <Proceed
-                decrement={decrement}
-                increment={increment}
                 orderForm={orderForm}
                 setComplete={setComplete}
-                total={total}
                 key={Date.now()}
-                priceDetails={priceDetails}
                 computeTotal={computeTotal}
-                priceInfo={priceInfo}
-                setTotal={setTotal}
-                isComputed={isComputed} 
+                isComputed={isComputed}
                 setIsComputed={setIsComputed}
                 setOrderId={setOrderId}
+                setOrderForm={setOrderForm}
               />
             </Box>
           </main>
