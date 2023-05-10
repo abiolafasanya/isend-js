@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 let API_URI;
 const apiURL = 'https://isend-api-v1.onrender.com/api/v1/';
 if (process.env.NODE_ENV === 'production') {
-  API_URI = process.env.REACT_APP_ISEND_API_URL;
+  API_URI = process.env.REACT_APP_ISEND_API_URL || apiURL;
 } else {
   API_URI = apiURL;
 }
