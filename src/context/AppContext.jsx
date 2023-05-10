@@ -1,5 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import Axios from '../api/axios';
+import Cookies from 'js-cookie';
+
 
 const AppContext = createContext({});
 
@@ -28,7 +30,7 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     setAuth((prev) => {
-      const auth = localStorage.getItem('auth');
+      const auth = Cookies.get('auth');
       if (auth) return JSON.parse(auth);
       return prev;
     });
@@ -39,11 +41,12 @@ export const AppProvider = ({ children }) => {
   }
 
   const handleSetAuth = (auth) => {
-    const isAuth = localStorage.getItem('auth');
+   
+    const isAuth = Cookies.get('auth');
     if (isAuth) {
-      localStorage.removeItem('auth');
+      Cookies.remove('auth');
     }
-    localStorage.setItem('auth', JSON.stringify(auth));
+    Cookies.set('auth', JSON.stringify(auth), { expires: 1 }); // expires in 1 days
     setAuth(auth);
     return auth;
   };
@@ -69,7 +72,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('auth');
+    Cookies.remove('auth');
     setAuth({ isLoggedIn: false });
   };
 
