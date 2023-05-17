@@ -15,7 +15,7 @@ const Proceed = ({
   const increment = () => {
     setOrderForm((order) => ({
       ...order,
-      delivery_fare: parseInt(order.delivery_fare) + 100,
+      delivery_fare: parseInt(order.delivery_fare) + 10,
     }));
     console.log(orderForm.delivery_fare);
   };
@@ -24,7 +24,7 @@ const Proceed = ({
     if (orderForm.delivery_fare !== 0) {
       setOrderForm((order) => ({
         ...order,
-        delivery_fare: parseInt(order.delivery_fare) - 100,
+        delivery_fare: parseInt(order.delivery_fare) - 10,
       }));
       console.log(orderForm.delivery_fare);
     }
